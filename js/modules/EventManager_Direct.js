@@ -210,13 +210,7 @@ class EventManager {
             });
         }
 
-        // Token info button
-        const tokenInfoBtn = document.querySelector('.token-info-button');
-        if (tokenInfoBtn) {
-            tokenInfoBtn.addEventListener('click', () => {
-                this.showTokenInfoModal();
-            });
-        }
+        // Token info button removed - no longer in UI
     }
 
     /**
@@ -231,9 +225,9 @@ class EventManager {
      * Add utility event listeners
      */
     addUtilityEventListeners() {
-        // Modal close buttons
+        // Modal close buttons (token-info-close removed)
         document.addEventListener('click', (e) => {
-            if (e.target.matches('.modal-close, .token-info-close')) {
+            if (e.target.matches('.modal-close')) {
                 this.closeAllModals();
             }
         });
@@ -273,19 +267,19 @@ class EventManager {
                 taskDescription: 'Erstelle ansprechende und originelle Inhalte basierend auf den gegebenen Parametern.',
                 outputFormat: 'Kreativer Text mit: Headline, Haupttext, Call-to-Action (maximal 500 Wörter)'
             },
-            'code-generation': {
-                name: 'Code-Generierung',
-                techniques: ['self-refine-prompting', 'chain-of-thought-prompting'],
-                basePrompt: 'Du bist ein erfahrener Software-Entwickler mit Expertise in verschiedenen Programmiersprachen.',
-                taskDescription: 'Schreibe sauberen, gut dokumentierten Code für die gegebene Aufgabe.',
-                outputFormat: 'Code mit: 1) Erklärung des Ansatzes, 2) Implementierung, 3) Testfälle, 4) Dokumentation'
+            'text-analysis-mindmap': {
+                name: 'Text-Analyse & Mindmap',
+                techniques: ['chain-of-thought-prompting', 'self-refine-prompting'],
+                basePrompt: 'Du bist ein erfahrener Textanalyst und Visualisierungsexperte mit der Fähigkeit, komplexe Texte zu strukturieren und als Mindmaps darzustellen.',
+                taskDescription: 'Analysiere den gegebenen Text gründlich und erstelle basierend auf der Analyse eine übersichtliche Mindmap in Mermaid-Code.',
+                outputFormat: 'Strukturierte Ausgabe mit: 1) Kurze Textanalyse (Hauptthemen, Kernpunkte), 2) Vollständiger Mermaid-Code für die Mindmap, 3) Erklärung der Mindmap-Struktur'
             },
-            'research-analysis': {
-                name: 'Forschungsanalyse',
-                techniques: ['retrieval-augmented-generation', 'least-to-most-prompting'],
-                basePrompt: 'Du bist ein Forschungsanalyst mit der Fähigkeit, komplexe Informationen zu synthetisieren.',
-                taskDescription: 'Analysiere die gegebenen Informationen und erstelle eine umfassende Bewertung.',
-                outputFormat: 'Strukturierte Analyse mit: Executive Summary, Detailanalyse, Schlussfolgerungen, Empfehlungen'
+            'critical-idea-analysis': {
+                name: 'Kritische Ideenbewertung',
+                techniques: ['chain-of-thought-prompting', 'self-consistency'],
+                basePrompt: 'Du bist ein kritischer Analyst mit der Fähigkeit, Ideen aus verschiedenen Perspektiven zu bewerten. Du gibst ehrliche, differenzierte Kritik ohne Schmeicheleien.',
+                taskDescription: 'Bewerte die gegebene Idee kritisch aus drei Perspektiven: Pro-Argumente, Gegenargumente und problematische Annahmen.',
+                outputFormat: 'Strukturierte Bewertung mit: 1) Pro-Argumente (was spricht dafür), 2) Contra-Argumente (logische, ethische, praktische Einwände), 3) Problematische Annahmen (was könnte falsch oder verkürzt sein), 4) Gegenposition und deren Begründung'
             }
         };
 
@@ -454,20 +448,14 @@ class EventManager {
     }
 
     /**
-     * Show token info modal
+     * Token info modal removed - no longer needed
      */
-    showTokenInfoModal() {
-        const modal = document.getElementById('token-info-modal');
-        if (modal) {
-            modal.style.display = 'block';
-        }
-    }
 
     /**
      * Close all modals
      */
     closeAllModals() {
-        document.querySelectorAll('.modal, .token-info-modal').forEach(modal => {
+        document.querySelectorAll('.modal').forEach(modal => {
             modal.style.display = 'none';
         });
     }

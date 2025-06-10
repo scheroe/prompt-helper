@@ -1,4 +1,4 @@
-/* Preview- und Token-Counter-spezifische Styles für den Prompt Builder */
+/* Preview-spezifische Styles für den Prompt Builder (Token-Counter entfernt) */
 
 /* =====================================
    PROMPT PREVIEW CONTAINER
@@ -44,45 +44,9 @@
 }
 
 /* =====================================
-   TOKEN COUNTER
+   TOKEN COUNTER REMOVED
    ===================================== */
-.token-counter {
-    padding: 10px 15px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #555;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.token-counter i {
-    margin-right: 8px;
-    color: #4a6cf7;
-}
-
-.token-count-warning {
-    color: #e53e3e;
-}
-
-.token-info-button {
-    background: none;
-    border: none;
-    color: #4a6cf7;
-    cursor: pointer;
-    font-size: 0.75rem;
-    padding: 2px;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
+/* Token counter display has been removed from the UI */
 
 .token-info-button:hover {
     background-color: #4a6cf7;

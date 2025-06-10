@@ -78,7 +78,6 @@ function showAboutModal() {
                 <li>Bewährte Prompt-Engineering-Techniken</li>
                 <li>Interaktive Dropdown-Navigation zwischen verwandten Techniken</li>
                 <li>Echtzeit-Prompt-Generierung</li>
-                <li>Token-Berechnung</li>
                 <li>Export und Speicher-Funktionen</li>
             </ul>
             <p><strong>Version:</strong> 1.0.0 (Standalone)</p>

@@ -52,13 +52,11 @@ class TaxonomyDataLoader {
         this.categoriesData = {
             categories: [
                 { id: "basic-concepts", name: "Grundkonzepte" },
-                { id: "reasoning-frameworks", name: "Denkrahmen" },
+                { id: "reasoning-frameworks", name: "Reasoning" },
                 { id: "agent-tool-use", name: "Agent & Werkzeugnutzung" },
                 { id: "self-improvement", name: "Selbstverbesserung" },
                 { id: "retrieval-augmentation", name: "Abruf & Erweiterung" },
-                { id: "prompt-optimization", name: "Prompt-Optimierung" },
-                { id: "multimodal-techniques", name: "Multimodale Techniken" },
-                { id: "specialized-application", name: "Spezialisierte Anwendungen" }
+                { id: "prompt-optimization", name: "Prompt-Optimierung" }
             ]
         };
 
@@ -73,8 +71,8 @@ class TaxonomyDataLoader {
                             description: "Bitten Sie das Modell, eine Aufgabe zu erfüllen, ohne Beispiele zu geben.",
                             aliases: ["Zero Shot", "0S", "No Example Prompting"],
                             sources: ["Brown et al. (2020)", "OpenAI Cookbook"],
-                            relatedTechniques: ["few_shot", "basic_prompting"],
-                            example: "Übersetzen Sie 'Hallo' ins Französische.",
+                            relatedTechniques: ["few_shot"],
+                            example: "Übersetze 'Hallo' ins Französische.",
                             useCase: "Allgemeine Aufgaben, bei denen keine Beispiele verfügbar sind."
                         },
                         {
@@ -84,7 +82,7 @@ class TaxonomyDataLoader {
                             aliases: ["Few Shot", "FS"],
                             sources: ["Brown et al. (2020)"],
                             relatedTechniques: ["zero_shot", "chain_of_thought"],
-                            example: "Übersetzen Sie 'Hallo' ins Französische: Bonjour. Übersetzen Sie 'Auf Wiedersehen' ins Französische:",
+                            example: "Input und Output als Beispiel angeben",
                             useCase: "Aufgaben, bei denen wenige Beispiele die Absicht verdeutlichen können."
                         },
                         {
@@ -94,29 +92,9 @@ class TaxonomyDataLoader {
                             aliases: ["1S", "Single Example"],
                             sources: ["Brown et al. (2020)"],
                             relatedTechniques: ["few_shot", "zero_shot"],
-                            example: "Übersetzen Sie 'Guten Morgen' ins Spanische: Buenos días.",
+                            example: "Schreibe ein Gedicht über den Sommer, als hätte Shakespeare es geschrieben",
                             useCase: "Wenn ein einziges Beispiel ausreicht, um die Aufgabe zu verdeutlichen."
                         },
-                        {
-                            id: "basic_prompting",
-                            name: "Basic Prompting",
-                            description: "Die einfachste Form, normalerweise Anweisung + Eingabe, ohne Beispiele oder komplexe Argumentationsschritte.",
-                            aliases: ["Standard Prompting", "Vanilla Prompting"],
-                            sources: ["Wei et al. (2022)"],
-                            relatedTechniques: ["zero_shot"],
-                            example: "Fassen Sie den folgenden Text zusammen.",
-                            useCase: "Direkte Aufgaben mit klaren Anweisungen."
-                        },
-                        {
-                            id: "in_context_learning",
-                            name: "In-Context Learning (ICL)",
-                            description: "LLM-Fähigkeit, aus Demonstrationen/Anweisungen innerhalb des Prompts zur Inferenzzeit zu lernen.",
-                            aliases: ["ICL"],
-                            sources: ["Brown et al. (2020)"],
-                            relatedTechniques: ["few_shot", "zero_shot"],
-                            example: "Bei gegebenen Q&A-Paaren, beantworten Sie eine neue Frage.",
-                            useCase: "Anpassung an neue Aufgaben ohne erneutes Training."
-                        }
                     ]
                 },
                 {
@@ -129,7 +107,7 @@ class TaxonomyDataLoader {
                             aliases: ["CoT", "Schritt-für-Schritt-Argumentation"],
                             sources: ["Wei et al. (2022)", "Schulhoff et al."],
                             relatedTechniques: ["few_shot", "zero_shot_cot"],
-                            example: "F: Wenn es 3 Autos gibt und jedes Auto 4 Räder hat, wie viele Räder gibt es? A: Lass uns Schritt für Schritt denken...",
+                            example: "F: Wenn es 3 Autos gibt und jedes Auto einen Ersatzreifen hat, wie viele Räder gibt es insgesamt? Lass uns das Schritt für Schritt denken...",
                             useCase: "Komplexe Argumentation oder mehrstufige Probleme.",
                             tips: "Geben Sie klare, detaillierte Argumentationsschritte in Ihren Beispielen. Zerlegen Sie komplexe Probleme in kleinere, logische Schritte. Verwenden Sie natürliche Sprache, die der Art entspricht, wie Menschen Probleme durchdenken.",
                             commonMistakes: "Überspringen von Zwischenschritten in Argumentationsketten. Verwendung zu komplexer Beispiele, die das Modell verwirren. Nicht anpassen des Argumentationsstils an die spezifische Problemdomäne."
@@ -144,36 +122,6 @@ class TaxonomyDataLoader {
                             example: "F: Was ist 17 + 25? A: Lass uns Schritt für Schritt denken.",
                             useCase: "Argumentation ohne Beispiele fördern."
                         },
-                        {
-                            id: "least_to_most",
-                            name: "Least-to-Most Prompting",
-                            description: "Zerlegen Sie ein Problem in Teilprobleme und lösen Sie sie sequenziell.",
-                            aliases: ["Decomposition Prompting"],
-                            sources: ["Zhou et al.", "Schulhoff et al."],
-                            relatedTechniques: ["chain_of_thought"],
-                            example: "Zerlegen Sie ein Mathematikproblem in kleinere Schritte und lösen Sie jeden.",
-                            useCase: "Komplexe Aufgaben, die Zerlegung erfordern."
-                        },
-                        {
-                            id: "self_ask",
-                            name: "Self-Ask",
-                            description: "Das Modell entscheidet, ob Nachfragen erforderlich sind, stellt sie/beantwortet sie, dann gibt es die finale Antwort.",
-                            aliases: ["Self-Questioning"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["chain_of_thought"],
-                            example: "F: Was ist die Hauptstadt des Landes mit der größten Bevölkerung in Afrika? A: Lass uns zuerst das Land finden...",
-                            useCase: "Multi-Hop- oder zusammengesetzte Fragen."
-                        },
-                        {
-                            id: "maieutic_prompting",
-                            name: "Maieutic Prompting",
-                            description: "Erzeugt konsistente Argumentation durch rekursive Erklärungen und Widerspruchsbeseitigung.",
-                            aliases: ["Recursive Explanation"],
-                            sources: ["Vatsal & Dubey"],
-                            relatedTechniques: ["chain_of_thought"],
-                            example: "Erklären Sie Ihre Antwort, dann erklären Sie, warum diese Erklärung korrekt ist.",
-                            useCase: "Sicherstellung der Antwortenkonsistenz."
-                        }
                     ]
                 },
                 {
@@ -211,26 +159,6 @@ class TaxonomyDataLoader {
                             example: "Ein LLM dazu bringen, einen mehrstufigen Arbeitsablauf zu planen und auszuführen.",
                             useCase: "Autonome oder halbautonome Aufgabenausführung."
                         },
-                        {
-                            id: "program_aided_language_model",
-                            name: "PAL (Program-Aided Language Model)",
-                            description: "Code generieren, ausführen und das Ergebnis in der Argumentation verwenden.",
-                            aliases: ["PAL"],
-                            sources: ["Vatsal & Dubey"],
-                            relatedTechniques: ["react"],
-                            example: "Python-Code zur Lösung eines Mathematikproblems generieren, dann die Ausgabe verwenden.",
-                            useCase: "Aufgaben, die Berechnung oder Code-Ausführung erfordern."
-                        },
-                        {
-                            id: "critiq",
-                            name: "CRITIC (Self-Correcting with Tool-Interactive Critiquing)",
-                            description: "Agent generiert eine Antwort, kritisiert sie und verwendet Werkzeuge zur Überprüfung/Verbesserung.",
-                            aliases: ["Self-Correcting Agent"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["react"],
-                            example: "Eine Antwort generieren, dann ein Suchwerkzeug verwenden, um zu überprüfen und zu überarbeiten.",
-                            useCase: "Faktenprüfung und iterative Verbesserung."
-                        }
                     ]
                 },
                 {
@@ -246,127 +174,6 @@ class TaxonomyDataLoader {
                             example: "Mehrere Lösungen generieren, dann die häufigste Antwort auswählen.",
                             useCase: "Reduzierung von Fehlern bei komplexer Argumentation."
                         },
-                        {
-                            id: "self_refine",
-                            name: "Self-Refine",
-                            description: "Iterativ: generieren, Feedback erhalten und die Ausgabe verbessern.",
-                            aliases: ["Iterative Refinement"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["self_consistency"],
-                            example: "Eine Antwort schreiben, kritisieren und überarbeiten.",
-                            useCase: "Verbesserung der Ausgabequalität durch Iteration."
-                        },
-                        {
-                            id: "self_critique",
-                            name: "Self-Critique",
-                            description: "Das Modell bewertet und verbessert seine eigene Ausgabe.",
-                            aliases: ["Self-Reflection"],
-                            sources: ["Schulhoff et al.", "Ridnik et al."],
-                            relatedTechniques: ["self_refine"],
-                            example: "Nach dem Antworten erklärt das Modell, was verbessert werden könnte.",
-                            useCase: "Selbstverbesserung und Fehlerkorrektur."
-                        },
-                        {
-                            id: "self_ask_improvement",
-                            name: "Self-Ask (Improvement)",
-                            description: "Das Modell stellt sich selbst klärende Fragen, um seine Antwort zu verbessern.",
-                            aliases: ["Self-Questioning Improvement"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["self_ask"],
-                            example: "F: Was ist der beste Weg, dies zu lösen? A: Lass mich das klären...",
-                            useCase: "Komplexe oder mehrdeutige Aufgaben."
-                        },
-                        {
-                            id: "self_instruct",
-                            name: "Self-Instruct",
-                            description: "Das Modell generiert anweisungsfolgende Daten mittels Bootstrapping.",
-                            aliases: ["Instruction Bootstrapping"],
-                            sources: ["Liu et al. - LogiCoT"],
-                            relatedTechniques: ["self_refine"],
-                            example: "Neue Anweisungen generieren und darauf trainieren.",
-                            useCase: "Erweiterung von Anweisungsdatensätzen."
-                        },
-                        {
-                            id: "recursive_self_improvement",
-                            name: "Recursive Self-Improvement",
-                            description: "Das Modell verbessert iterativ seine eigenen Ausgaben durch mehrere Runden von Selbstkritik und Verfeinerung.",
-                            aliases: ["Iterative Self-Enhancement", "Recursive Refinement"],
-                            sources: ["Huang et al. (2023)", "Madaan et al. (2023)"],
-                            relatedTechniques: ["self_refine", "self_critique"],
-                            example: "Lösung generieren → Lösung kritisieren → Lösung verbessern → Erneut kritisieren → Finale Lösung",
-                            useCase: "Komplexe Problemlösung, die mehrere Verfeinerungsiterationen erfordert.",
-                            tips: "Beginnen Sie mit klaren Bewertungskriterien. Begrenzen Sie die Anzahl der Iterationen, um Zirkelschlüsse zu vermeiden. Verwenden Sie unterschiedliche Prompting-Strategien für die Kritik- vs. Verbesserungsphasen.",
-                            commonMistakes: "Zu viele Iterationen zulassen, was zu Weitschweifigkeit führt. Keine klaren genug Kritikkriterien bereitstellen. Wichtige Elemente aus früheren Iterationen nicht bewahren."
-                        }
-                    ]
-                },
-                {
-                    id: "retrieval-augmentation",
-                    techniques: [
-                        {
-                            id: "rag",
-                            name: "RAG (Retrieval Augmented Generation)",
-                            description: "Externe Informationen abrufen und zum Prompt-Kontext hinzufügen.",
-                            aliases: ["Retrieval-Augmented Generation"],
-                            sources: ["Lewis et al.", "Schulhoff et al."],
-                            relatedTechniques: ["retrieval_with_reference"],
-                            example: "Relevante Dokumente abrufen, bevor eine Frage beantwortet wird.",
-                            useCase: "Aufgaben, die aktuelles oder externes Wissen erfordern.",
-                            tips: "Verwenden Sie hochwertige, vielfältige Wissensquellen. Implementieren Sie effektive Chunking-Strategien für lange Dokumente. Erwägen Sie hybride Abrufmethoden, die semantische und Schlüsselwort-Suche kombinieren.",
-                            commonMistakes: "Zu viele irrelevante Informationen abrufen, die den Kontext verwässern. Quellen in der generierten Ausgabe nicht ordnungsgemäß zuordnen. Veraltete oder unzuverlässige Wissensquellen verwenden."
-                        },
-                        {
-                            id: "retrieval_with_reference",
-                            name: "Retrieval with Reference",
-                            description: "Oracle-Abruf unter Verwendung der Referenzvervollständigung zur Anleitung des Kontextabrufs.",
-                            aliases: ["Reference-Guided Retrieval"],
-                            sources: ["Ding et al."],
-                            relatedTechniques: ["rag"],
-                            example: "Die korrekte Antwort verwenden, um den relevantesten Kontext zu finden.",
-                            useCase: "Verbesserung der Abrufgenauigkeit."
-                        },
-                        {
-                            id: "parc",
-                            name: "PARC (Prompts Augmented by Retrieval Cross-lingually)",
-                            description: "Hochressourcige Beispiele für mehrsprachiges ICL mit geringen Ressourcen abrufen.",
-                            aliases: ["Cross-lingual Retrieval"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["rag"],
-                            example: "Englische Beispiele finden, um bei einer Aufgabe in einer ressourcenarmen Sprache zu helfen.",
-                            useCase: "Mehrsprachige Prompt-Erweiterung."
-                        },
-                        {
-                            id: "flare",
-                            name: "FLARE (Iterative Retrieval Augmentation)",
-                            description: "Mehrere Abrufe während der Generierung durchführen.",
-                            aliases: ["Iterative Retrieval"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["rag"],
-                            example: "Neuen Kontext bei jedem Generierungsschritt abrufen.",
-                            useCase: "Komplexe, mehrstufige Aufgaben."
-                        },
-                        {
-                            id: "prompt_chaining",
-                            name: "Prompt Chaining",
-                            description: "Sequenzielle Verknüpfung von Prompt-Ausgaben/Eingaben.",
-                            aliases: ["Chained Prompts"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["rag"],
-                            example: "Die Ausgabe eines Prompts als Eingabe für den nächsten verwenden.",
-                            useCase: "Mehrstufige Arbeitsabläufe."
-                        },
-                        {
-                            id: "hypothetical_document_embeddings",
-                            name: "Hypothetical Document Embeddings (HyDE)",
-                            description: "Ein hypothetisches Dokument generieren, das eine Anfrage beantworten würde, dann dessen Embedding für den Abruf verwenden.",
-                            aliases: ["HyDE", "Synthetic Document Retrieval"],
-                            sources: ["Gao et al. (2022)", "Pradeep et al. (2023)"],
-                            relatedTechniques: ["rag", "retrieval_with_reference"],
-                            example: "Anfrage: 'Wie funktionieren Impfstoffe?' → Hypothetische Antwort generieren → Diese Antwort einbetten → Ähnliche echte Dokumente abrufen",
-                            useCase: "Verbesserung des Abrufs für komplexe oder abstrakte Anfragen, bei denen direktes Schlüsselwort-Matching versagt.",
-                            tips: "Mehrere hypothetische Dokumente für vielfältigen Abruf generieren. Ein starkes LLM zur Generierung der hypothetischen Dokumente verwenden. Mit traditionellen Abrufmethoden für beste Ergebnisse kombinieren.",
-                            commonMistakes: "Zu spezifische hypothetische Dokumente generieren, die den Abruf zu sehr einschränken. Qualitativ schlechte abgerufene Dokumente nicht herausfiltern. Sich ausschließlich auf HyDE verlassen ohne traditionellen Abruf als Backup."
-                        }
                     ]
                 },
                 {
@@ -383,44 +190,14 @@ class TaxonomyDataLoader {
                             useCase: "Automatisierung des Prompt-Designs."
                         },
                         {
-                            id: "apo",
-                            name: "Automated Prompt Optimization (APO)",
-                            description: "Bereich der Verwendung automatisierter Techniken zur Findung optimaler Prompts.",
-                            aliases: ["Prompt Optimization"],
-                            sources: ["Ramnath et al.", "Li et al."],
-                            relatedTechniques: ["ape"],
-                            example: "Algorithmen zur Optimierung der Prompt-Formulierung verwenden.",
-                            useCase: "Verbesserung der Prompt-Effektivität."
-                        },
-                        {
-                            id: "ensemble_methods",
-                            name: "Ensemble Methods (APO)",
-                            description: "Mehrere Prompts generieren und ihre Ausgaben kombinieren.",
-                            aliases: ["Prompt Ensembling"],
-                            sources: ["Ramnath et al."],
-                            relatedTechniques: ["apo"],
-                            example: "Mehrere Prompts ausführen und die Ergebnisse aggregieren.",
-                            useCase: "Steigerung von Genauigkeit und Robustheit."
-                        },
-                        {
                             id: "prompt_paraphrasing",
                             name: "Prompt Paraphrasing",
                             description: "Prompt-Variationen durch Umformulierung generieren.",
                             aliases: ["Prompt Variation"],
                             sources: ["Schulhoff et al."],
-                            relatedTechniques: ["apo"],
+                            relatedTechniques: [],
                             example: "Einen Prompt auf verschiedene Weise umformulieren, um den besten zu finden.",
                             useCase: "Erkundung der Prompt-Vielfalt."
-                        },
-                        {
-                            id: "prefix_tuning",
-                            name: "Prefix-Tuning",
-                            description: "Soft Prompting durch Hinzufügung trainierbarer Vektoren zum Präfix.",
-                            aliases: ["Soft Prompt Tuning"],
-                            sources: ["Ye et al.", "Schulhoff et al."],
-                            relatedTechniques: ["apo"],
-                            example: "Ein kontinuierliches Prompt-Präfix für eine Aufgabe optimieren.",
-                            useCase: "Feinabstimmung von Prompts für spezifische Modelle."
                         },
                         {
                             id: "directional_stimulus_prompting",
@@ -428,149 +205,11 @@ class TaxonomyDataLoader {
                             description: "Modell-Ausgaben durch Bereitstellung von Richtungshinweisen lenken, die die Generierung in Richtung gewünschter Eigenschaften steuern.",
                             aliases: ["DSP", "Steering Prompts"],
                             sources: ["Li et al. (2023)", "Khattab et al. (2023)"],
-                            relatedTechniques: ["apo", "prompt_paraphrasing"],
+                            relatedTechniques: ["prompt_paraphrasing"],
                             example: "Um Text formeller zu machen: 'Schreiben Sie eine Antwort, die professionell ist, anspruchsvolles Vokabular verwendet und Umgangssprache vermeidet.'",
                             useCase: "Kontrolle von Stil, Ton, Komplexität oder anderen qualitativen Aspekten des generierten Inhalts.",
                             tips: "Verwenden Sie konkrete, spezifische Anweisungen anstatt vager Instruktionen. Kombinieren Sie mehrere Steuerungshinweise für präzisere Kontrolle. Testen Sie verschiedene Formulierungen, um optimale Lenkungssprache zu finden.",
                             commonMistakes: "Verwendung widersprüchlicher Anweisungen, die das Modell verwirren. Zu vage in den Richtungshinweisen sein. Überlastung mit zu vielen Steuerungsattributen auf einmal."
-                        }
-                    ]
-                },
-                {
-                    id: "multimodal-techniques",
-                    techniques: [
-                        {
-                            id: "image_prompting",
-                            name: "Image Prompting",
-                            description: "Prompting-Techniken mit Bild-Eingabe oder -Ausgabe.",
-                            aliases: ["Visual Prompting"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["multimodal_chain_of_thought"],
-                            example: "Ein Bild beschreiben und das Modell bitten, eine Bildunterschrift zu generieren.",
-                            useCase: "Vision-Language-Aufgaben.",
-                            tips: "Seien Sie spezifisch über welche Aspekte des Bildes zu fokussieren sind. Verwenden Sie klare, detaillierte Sprache bei der Beschreibung visueller Elemente. Kombinieren Sie mit Text-Prompts für präzisere Ausgaben.",
-                            commonMistakes: "Zu vage in Bildbeschreibungen oder Anfragen sein. Die visuellen Fähigkeiten und Grenzen des Modells nicht berücksichtigen. Keinen Kontext für mehrdeutige visuelle Elemente bereitstellen."
-                        },
-                        {
-                            id: "audio_prompting",
-                            name: "Audio Prompting",
-                            description: "Prompting-Techniken für oder mit Audio-Daten.",
-                            aliases: ["Speech Prompting"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["multimodal_chain_of_thought"],
-                            example: "Einen Audio-Clip bereitstellen und nach einem Transkript fragen.",
-                            useCase: "Sprache-zu-Text und Audio-Analyse."
-                        },
-                        {
-                            id: "multimodal_chain_of_thought",
-                            name: "Multimodal Chain-of-Thought",
-                            description: "CoT mit nicht-textlichen Modalitäten.",
-                            aliases: ["Multimodal CoT"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["chain_of_thought"],
-                            example: "Über ein Bild und Text zusammen argumentieren.",
-                            useCase: "Komplexe multimodale Argumentation."
-                        },
-                        {
-                            id: "chain_of_images",
-                            name: "Chain-of-Images (CoI)",
-                            description: "Multimodaler CoT, der Bilder als Zwischenschritte generiert.",
-                            aliases: ["CoI"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["multimodal_chain_of_thought"],
-                            example: "Eine Sequenz von Bildern generieren, um einen Prozess zu erklären.",
-                            useCase: "Schrittweise visuelle Erklärungen."
-                        },
-                        {
-                            id: "video_prompting",
-                            name: "Video Prompting",
-                            description: "Prompting-Techniken für oder mit Video-Daten.",
-                            aliases: ["Video Generation Prompting"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["image_prompting"],
-                            example: "Ein Video bereitstellen und nach einer Zusammenfassung fragen.",
-                            useCase: "Video-Analyse und Zusammenfassung."
-                        },
-                        {
-                            id: "visual_reasoning_prompting",
-                            name: "Visual Reasoning Prompting",
-                            description: "Techniken, die multimodale Modelle durch explizite visuelle Argumentationsschritte führen.",
-                            aliases: ["Visual CoT", "Visual Step-by-Step Reasoning"],
-                            sources: ["Zhang et al. (2023)", "Alayrac et al. (2022)"],
-                            relatedTechniques: ["multimodal_chain_of_thought", "image_prompting"],
-                            example: "Für dieses Bild identifizieren Sie zuerst alle Objekte, analysieren Sie dann deren räumliche Beziehungen und bestimmen Sie schließlich, welches Objekt anomal ist.",
-                            useCase: "Komplexe visuelle Aufgaben, die mehrstufige Argumentation oder detaillierte Analyse erfordern.",
-                            tips: "Zerlegen Sie visuelle Analyse in klare sequenzielle Schritte. Verweisen Sie auf spezifische Regionen oder Elemente im Bild. Kombinieren Sie mit textbasierter Argumentation für komplexe Aufgaben.",
-                            commonMistakes: "Nicht genug Anleitung darüber geben, auf welche visuellen Elemente zu fokussieren ist. Annehmen, dass das Modell alle visuellen Details ohne spezifische Anleitung identifizieren kann. Visuelle Beobachtungen nicht mit Argumentationsschritten verbinden."
-                        }
-                    ]
-                },
-                {
-                    id: "specialized-application",
-                    techniques: [
-                        {
-                            id: "code_generation_agents",
-                            name: "Code Generation Agents",
-                            description: "Agenten, die auf Code-Generierung spezialisiert sind.",
-                            aliases: ["Code-Based Agents"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["agent_tool_use"],
-                            example: "Ein LLM dazu bringen, Code zu schreiben und zu debuggen.",
-                            useCase: "Automatisierte Programmieraufgaben."
-                        },
-                        {
-                            id: "bias_mitigation",
-                            name: "Bias Mitigation",
-                            description: "Auswahl von Few-Shot-Beispielen mit einer ausgewogenen Verteilung von Attributen/Labels.",
-                            aliases: ["Balanced Demonstrations"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["few_shot"],
-                            example: "Beispiele auswählen, um Gender- oder Rassismus-Bias zu vermeiden.",
-                            useCase: "Fairness in Modell-Ausgaben."
-                        },
-                        {
-                            id: "security_detectors",
-                            name: "Detectors (Security)",
-                            description: "Werkzeuge zur Erkennung bösartiger Eingaben oder Prompt-Hacking-Versuche.",
-                            aliases: ["Prompt Hacking Detection"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["prompt_hacking"],
-                            example: "Erkennen, ob ein Prompt versucht, das Modell zu jailbreaken.",
-                            useCase: "Sicherung von LLM-Anwendungen."
-                        },
-                        {
-                            id: "prompt_hacking",
-                            name: "Prompt Hacking",
-                            description: "Bösartige Manipulation von Prompts.",
-                            aliases: ["Jailbreaking", "Prompt Injection"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["security_detectors"],
-                            example: "Das Modell dazu bringen, Anweisungen zu ignorieren.",
-                            useCase: "Sicherheitsforschung und Verteidigung.",
-                            tips: "Implementieren Sie Eingabevalidierung und -bereinigung. Verwenden Sie System-Prompts, die resistent gegen Manipulation sind. Testen Sie regelmäßig mit adversarialen Eingaben, um Schwachstellen zu identifizieren.",
-                            commonMistakes: "Sich ausschließlich auf modellbasierte Verteidigungen verlassen. Indirekte Prompt-Injection-Vektoren nicht berücksichtigen. Annehmen, dass Modell-Updates automatisch Sicherheitsprobleme beheben."
-                        },
-                        {
-                            id: "domain_specific_prompting",
-                            name: "Domain-Specific Prompting",
-                            description: "Techniken, die für spezifische Domänen oder Anwendungen optimiert sind.",
-                            aliases: ["Specialized Prompting"],
-                            sources: ["Schulhoff et al."],
-                            relatedTechniques: ["basic_prompting"],
-                            example: "Medizinische, rechtliche oder wissenschaftliche Prompt-Vorlagen.",
-                            useCase: "Experten-Level oder regulierte Aufgaben."
-                        },
-                        {
-                            id: "red_teaming",
-                            name: "Red Teaming",
-                            description: "Systematisches adversariales Testen zur Identifizierung und Minderung schädlicher, voreingenommener oder manipulativer Ausgaben.",
-                            aliases: ["Adversarial Testing", "Security Probing"],
-                            sources: ["Ganguli et al. (2022)", "Perez et al. (2022)"],
-                            relatedTechniques: ["prompt_hacking", "security_detectors"],
-                            example: "Ein Modell mit sorgfältig gestalteten Eingaben testen, die darauf ausgelegt sind, schädliche Antworten hervorzurufen, dann die Erkenntnisse zur Verbesserung der Sicherheitsmaßnahmen nutzen.",
-                            useCase: "Bewertung und Verbesserung der Modellsicherheit, Identifizierung von Schwachstellen in Prompt-Schutzmaßnahmen.",
-                            tips: "Verwenden Sie vielfältige Teststrategien über mehrere Dimensionen (z.B. Schädlichkeit, Bias, Manipulation). Dokumentieren Sie alle erfolgreichen Angriffe für systematische Verbesserung. Kombinieren Sie automatisierte und von Menschen geleitete Testansätze.",
-                            commonMistakes: "Nur offensichtliche Angriffsvektoren testen. Red-Teaming-Strategien nicht aktualisieren, während sich Modelle verbessern. Sich ausschließlich auf Jailbreaking konzentrieren, ohne subtile Biases oder Manipulationen zu berücksichtigen."
                         }
                     ]
                 }
@@ -1349,9 +988,7 @@ class TaxonomyDataLoader {
             'agent-tool-use': 'fas fa-robot',
             'self-improvement': 'fas fa-chart-line',
             'retrieval-augmentation': 'fas fa-database',
-            'prompt-optimization': 'fas fa-sliders-h',
-            'multimodal-techniques': 'fas fa-images',
-            'specialized-application': 'fas fa-cogs'
+            'prompt-optimization': 'fas fa-sliders-h'
         };
         
         return iconMap[categoryId] || 'fas fa-lightbulb';

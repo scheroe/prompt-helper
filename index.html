@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interaktiver Prompt-Helper</title>
+    <title>Prompt-Helper</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/prompt-builder.css">
     <link rel="stylesheet" href="assets/css/prompt-builder-layout.css">
@@ -26,7 +26,6 @@
         <div class="header-container">
             <div class="header-left">
                 <h1><i class="fas fa-magic"></i> Prompt-Helper</h1>
-                <span class="header-subtitle">Erstellen Sie effektive KI-Prompts</span>
             </div>
             <div class="header-right">
                 <nav class="header-nav">
@@ -41,11 +40,6 @@
     </header>
 
     <main>
-        <section class="section-header">
-            <h2>Interaktiver Prompt-Helper</h2>
-            <p>Erstellen Sie effektive Prompts durch Kombination von bewährten Prompt-Engineering-Techniken. Wählen Sie Techniken aus, fügen Sie Ihre Aufgabendetails hinzu und generieren Sie einen für Ihre Bedürfnisse optimierten Prompt.</p>
-        </section>
-
         <div class="main-layout">
             <section class="techniques-sidebar">
                 <h3><i class="fas fa-list-check"></i> Techniken auswählen</h3>
@@ -63,16 +57,15 @@
                 <div class="prompt-builder-container">
                     <!-- Direct form view - no wizard navigation -->
                     <div class="form-header">
-                        <h3><i class="fas fa-pen-to-square"></i> Prompt Details</h3>
-                        <p>Füllen Sie die Details aus, um Ihren Prompt zu erstellen. Wählen Sie Techniken links, um zusätzliche Optionen zu aktivieren.</p>
-                    </div>
+                        <h3><i class="fas fa-pen-to-square"></i> Formular</h3>
+                           </div>
 
                     <!-- Main form content (previously step 2) -->
                     <div class="main-form-content" id="main-form-content">
                         
                         <div class="prompt-inputs-container">
                             <div class="input-group">
-                                <label for="base-prompt"><i class="fas fa-user-gear"></i> Basis-Prompt (optional):</label>
+                                <label for="base-prompt"><i class="fas fa-user-gear"></i> Rollenzuweisung (optional):</label>
                                 <textarea id="base-prompt" placeholder="z.B. Du bist ein erfahrener Texter mit 20 Jahren Berufserfahrung..."></textarea>
                             </div>
                             
@@ -82,7 +75,7 @@
                             </div>
                             
                             <div class="input-group">
-                                <label for="output-format"><i class="fas fa-file-export"></i> Ausgabeformat (optional):</label>
+                                <label for="output-format"><i class="fas fa-file-export"></i> Ausgabeformat:</label>
                                 <textarea id="output-format" placeholder="Geben Sie das gewünschte Format für die Antwort an..."></textarea>
                             </div>
 
@@ -91,8 +84,7 @@
                             
                             <!-- Action button to proceed to preview -->
                             <div class="form-actions">
-                                <button id="generate-preview-button" class="button primary large">
-                                    <i class="fas fa-magic"></i> Prompt generieren & Vorschau anzeigen
+                                <button id="generate-preview-button" class="button primary large">Vorschau anzeigen
                                 </button>
                             </div>
                         </div>
@@ -109,29 +101,11 @@
                         </div>
                         
                         <div class="prompt-preview-container">
-                            <div id="prompt-preview">
-                                Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
+                            <div id="prompt-preview">Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
                             </div>
-                            <div class="prompt-actions">
-                                <div id="token-count" class="token-counter">
-                                    <i class="fas fa-calculator"></i>
-                                    <span id="token-count-text"> 0 Tokens (0 Zeichen)</span>
-                                    <button class="token-info-button" title="Token-Berechnung Info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                                <div class="prompt-actions-right">
-                                    <button id="clear-prompt-button" class="button secondary"><i class="fas fa-eraser"></i> Löschen</button>
-                                    <button id="save-prompt-button" class="button secondary"><i class="fas fa-save"></i> Speichern</button>
-                                    <button id="export-prompt-button" class="button secondary"><i class="fas fa-file-export"></i> Exportieren</button>
-                                    <button id="copy-prompt-button" class="button primary" disabled><i class="fas fa-copy"></i> In Zwischenablage kopieren</button>
-                                </div>
-                            </div>
+                            <!-- Token counter removed -->
                         </div>
                         
-                        <div class="preview-actions">
-                            <button id="start-over-button" class="button secondary">Neu starten <i class="fas fa-redo"></i></button>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -171,29 +145,29 @@
 
                     <div class="example-card">
                         <div class="example-card-header">
-                            <h4>Code-Generierung</h4>
+                            <h4>Text-Analyse & Mindmap</h4>
                         </div>
                         <div class="example-card-body">
-                            <p>Generieren Sie hochwertigen Code mit Testfällen und Erläuterungen.</p>
+                            <p>Analysieren Sie vorhandene Texte und erstellen Sie strukturierte Mindmaps in Mermaid-Code.</p>
                             <div class="example-techniques">
-                                <span class="example-technique">Self-Correction</span>
                                 <span class="example-technique">Structured Chain-of-Thought</span>
+                                <span class="example-technique">Self-Refine</span>
                             </div>
-                            <button class="button primary use-example-button" data-example="code-generation">Diese Vorlage verwenden</button>
+                            <button class="button primary use-example-button" data-example="text-analysis-mindmap">Diese Vorlage verwenden</button>
                         </div>
                     </div>
 
                     <div class="example-card">
                         <div class="example-card-header">
-                            <h4>Forschungsanalyse</h4>
+                            <h4>Kritische Ideenbewertung</h4>
                         </div>
                         <div class="example-card-body">
-                            <p>Analysieren und synthetisieren Sie Informationen aus mehreren Quellen.</p>
+                            <p>Bewerten Sie Ideen aus multiplen Perspektiven mit ehrlicher, differenzierter Kritik.</p>
                             <div class="example-techniques">
-                                <span class="example-technique">ReAct</span>
-                                <span class="example-technique">Tree of Thoughts</span>
+                                <span class="example-technique">Chain-of-Thought</span>
+                                <span class="example-technique">Self-Consistency</span>
                             </div>
-                            <button class="button primary use-example-button" data-example="research-analysis">Diese Vorlage verwenden</button>
+                            <button class="button primary use-example-button" data-example="critical-idea-analysis">Diese Vorlage verwenden</button>
                         </div>
                     </div>
                 </div>

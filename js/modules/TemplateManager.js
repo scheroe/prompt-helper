@@ -14,7 +14,7 @@ class TemplateManager {
                 name: "Basic Template",
                 description: "Grundlegende Prompt-Struktur für einfache Aufgaben",
                 template: "Bitte {task_description}.\n\n{output_format}",
-                relatedTechniques: ['basic-prompting'],
+                relatedTechniques: ['zero-shot-prompting'],
                 fields: [
                     { name: 'task_description', type: 'textarea', label: 'Aufgabenbeschreibung', required: true },
                     { name: 'output_format', type: 'textarea', label: 'Ausgabeformat (optional)', required: false }
@@ -25,7 +25,7 @@ class TemplateManager {
                 name: "Persona Template",
                 description: "Expertenpersona mit Rolle und Erfahrung definieren",
                 template: "Du bist ein/e {role} mit {experience} Jahren Erfahrung. {task_description}\n\n{output_format}",
-                relatedTechniques: ['role-prompting'],
+                relatedTechniques: ['zero-shot-prompting'],
                 fields: [
                     { name: 'role', type: 'text', label: 'Rolle/Expertise', required: true, placeholder: 'z.B. Softwareentwickler, Marketing-Experte' },
                     { name: 'experience', type: 'number', label: 'Jahre Erfahrung', required: true, placeholder: '5' },
@@ -45,7 +45,7 @@ class TemplateManager {
                 name: "Few-Shot Template", 
                 description: "Lernen durch Beispiele - mit dynamischen Example-Feldern",
                 template: "Kontext: {context}\n\nBeispiele:\n{examples}\n\nAufgabe: {task_description}\n\n{output_format}",
-                relatedTechniques: ['few-shot-learning', 'in-context-learning'],
+                relatedTechniques: ['few-shot-prompting'],
                 fields: [
                     { name: 'context', type: 'textarea', label: 'Kontext/Hintergrund', required: true },
                     { name: 'task_description', type: 'textarea', label: 'Aufgabenbeschreibung', required: true },
@@ -69,7 +69,7 @@ class TemplateManager {
                 name: "Step-by-Step Template",
                 description: "Aufgaben in Zwischenschritte unterteilen",
                 template: "Löse folgende Aufgabe Schritt für Schritt:\n\n{task_description}\n\n{steps}\n\n{output_format}",
-                relatedTechniques: ['chain-of-thought', 'zero-shot-cot'],
+                relatedTechniques: ['chain-of-thought-prompting'],
                 fields: [
                     { name: 'task_description', type: 'textarea', label: 'Hauptaufgabe', required: true },
                     { name: 'output_format', type: 'textarea', label: 'Ausgabeformat (optional)', required: false }
@@ -92,7 +92,7 @@ class TemplateManager {
                 name: "Question-Answering Template",
                 description: "Spezifische Fragen mit Modalitäts-Unterstützung",
                 template: "Beantworte folgende Frage: {question}\n\n{context}\n\n{output_format}",
-                relatedTechniques: ['basic-prompting', 'question-answering'],
+                relatedTechniques: ['zero-shot-prompting'],
                 fields: [
                     { name: 'question', type: 'textarea', label: 'Frage', required: true },
                     { name: 'context', type: 'textarea', label: 'Kontext (optional)', required: false },
@@ -104,26 +104,26 @@ class TemplateManager {
                     { label: 'Bild → Text', template: 'Was siehst du in diesem Bild? (Bild wird separat hochgeladen)' }
                 ]
             },
-            "code": {
-                id: "code",
-                name: "Code-Generierung Template",
-                description: "Code-Generierung mit Sprach-Mapping und Requirements",
-                template: "Schreibe {language}-Code für: {function_purpose}\n\nAnforderungen:\n{requirements}\n\n{output_format}",
-                relatedTechniques: ['tool-use', 'code-generation'],
+            "text-analysis": {
+                id: "text-analysis",
+                name: "Text-Analyse & Mindmap Template",
+                description: "Analysiert Texte und erstellt Mindmaps in Mermaid-Code",
+                template: "Analysiere den folgenden Text und erstelle eine Mindmap:\n\nText: {input_text}\n\nFokus: {analysis_focus}\n\nErstelle:\n1. Eine kurze Analyse der Hauptthemen\n2. Eine Mindmap in Mermaid-Code mit den Struktur-Anforderungen: {structure_requirements}\n3. Erklärung der Mindmap-Logik\n\n{output_format}",
+                relatedTechniques: ['chain-of-thought-prompting', 'self-refine-prompting'],
                 fields: [
-                    { name: 'language', type: 'select', label: 'Programmiersprache', required: true, 
-                      options: ['JavaScript', 'Python', 'Java', 'C++', 'C#', 'Go', 'Rust', 'TypeScript', 'PHP', 'Ruby'] },
-                    { name: 'function_purpose', type: 'textarea', label: 'Funktions-Zweck', required: true },
-                    { name: 'output_format', type: 'textarea', label: 'Ausgabeformat (optional)', required: false }
+                    { name: 'input_text', type: 'textarea', label: 'Zu analysierender Text', required: true },
+                    { name: 'analysis_focus', type: 'select', label: 'Analyse-Fokus', required: true, 
+                      options: ['Hauptthemen & Struktur', 'Argumentationslinien', 'Konzepte & Beziehungen', 'Prozesse & Abläufe', 'Kategorien & Hierarchien'] },
+                    { name: 'output_format', type: 'textarea', label: 'Zusätzliche Anforderungen (optional)', required: false }
                 ],
                 dynamicFields: {
-                    requirements: {
+                    structure_requirements: {
                         type: 'expandable-list',
-                        label: 'Anforderungen',
+                        label: 'Mindmap-Struktur Anforderungen',
                         minItems: 1,
-                        maxItems: 15,
+                        maxItems: 10,
                         itemFields: [
-                            { name: 'requirement', type: 'textarea', label: 'Anforderung' }
+                            { name: 'requirement', type: 'textarea', label: 'Struktur-Anforderung' }
                         ]
                     }
                 }
@@ -133,7 +133,7 @@ class TemplateManager {
                 name: "Kreative Generierung Template",
                 description: "Kreative Inhalte mit charakteristischen Eigenschaften",
                 template: "Erstelle {content_type} über {topic} mit folgenden Eigenschaften:\n{characteristics}\n\n{output_format}",
-                relatedTechniques: ['creative-writing', 'basic-prompting'],
+                relatedTechniques: ['few-shot-prompting'],
                 fields: [
                     { name: 'content_type', type: 'select', label: 'Content-Typ', required: true,
                       options: ['Artikel', 'Geschichte', 'Gedicht', 'Blogpost', 'Marketing-Text', 'Produktbeschreibung', 'Social Media Post'] },
@@ -157,7 +157,7 @@ class TemplateManager {
                 name: "Interaktiv/Mehrschrittig Template",
                 description: "Mehrschrittige Interaktionen mit if-else Requirements",
                 template: "Interaktive Aufgabe: {task_description}\n\nErster Schritt: {initial_step}\n\n{requirements}\n\n{output_format}",
-                relatedTechniques: ['react-prompting', 'multi-step-reasoning'],
+                relatedTechniques: ['least-to-most-prompting'],
                 fields: [
                     { name: 'task_description', type: 'textarea', label: 'Aufgabenbeschreibung', required: true },
                     { name: 'initial_step', type: 'textarea', label: 'Initialer Schritt', required: true },
@@ -177,19 +177,46 @@ class TemplateManager {
                         ]
                     }
                 }
+            },
+            "critical-analysis": {
+                id: "critical-analysis",
+                name: "Kritische Ideenbewertung Template",
+                description: "Bewertung von Ideen aus multiplen kritischen Perspektiven",
+                template: "Bewerte folgende Idee kritisch aus drei Perspektiven:\n\nIdee: {idea_description}\n\nKontext: {context}\n\n1. Was spricht dafür? {pro_focus}\n2. Welche logischen, ethischen oder praktischen Gegenargumente gibt es? {contra_focus}\n3. Welche Annahmen könnten falsch oder verkürzt sein? {assumptions_focus}\n\nZusätzliche kritische Frage: Welche Perspektive widerspricht meiner und warum?\n\n{critical_requirements}\n\nBitte keine Schmeicheleien – ich will differenzierte, ehrliche Kritik.\n\n{output_format}",
+                relatedTechniques: ['chain-of-thought-prompting', 'self-consistency'],
+                fields: [
+                    { name: 'idea_description', type: 'textarea', label: 'Zu bewertende Idee', required: true },
+                    { name: 'context', type: 'textarea', label: 'Kontext/Hintergrund', required: false },
+                    { name: 'pro_focus', type: 'text', label: 'Pro-Fokus (optional)', required: false },
+                    { name: 'contra_focus', type: 'text', label: 'Contra-Fokus (optional)', required: false },
+                    { name: 'assumptions_focus', type: 'text', label: 'Annahmen-Fokus (optional)', required: false },
+                    { name: 'output_format', type: 'textarea', label: 'Ausgabeformat (optional)', required: false }
+                ],
+                dynamicFields: {
+                    critical_requirements: {
+                        type: 'expandable-list',
+                        label: 'Spezifische kritische Anforderungen',
+                        minItems: 0,
+                        maxItems: 8,
+                        itemFields: [
+                            { name: 'requirement', type: 'textarea', label: 'Kritische Anforderung' }
+                        ]
+                    }
+                }
             }
         };
 
         // Template-zu-Technik-Mapping für automatische Auswahl
         this.templateTechniqueMapping = {
-            'basic': ['basic-prompting'],
-            'persona': ['role-prompting'],
-            'few-shot': ['few-shot-learning', 'in-context-learning'],
-            'step-by-step': ['chain-of-thought', 'zero-shot-cot'],
-            'question-answering': ['basic-prompting', 'question-answering'],
-            'interactive': ['react-prompting', 'multi-step-reasoning'],
-            'code': ['tool-use', 'code-generation'],
-            'creative': ['creative-writing', 'basic-prompting']
+            'basic': ['zero-shot-prompting'],
+            'persona': ['zero-shot-prompting'],
+            'few-shot': ['few-shot-prompting'],
+            'step-by-step': ['chain-of-thought-prompting'],
+            'question-answering': ['zero-shot-prompting'],
+            'interactive': ['least-to-most-prompting'],
+            'text-analysis': ['chain-of-thought-prompting', 'self-refine-prompting'],
+            'creative': ['few-shot-prompting'],
+            'critical-analysis': ['chain-of-thought-prompting', 'self-consistency']
         };
     }
 

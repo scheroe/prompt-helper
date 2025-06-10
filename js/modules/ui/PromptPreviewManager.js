@@ -1,5 +1,5 @@
 /**
- * PromptPreviewManager - Verwaltet Prompt-Preview und Token-Zählung
+ * PromptPreviewManager - Verwaltet Prompt-Preview (Token-Zählung entfernt)
  */
 class PromptPreviewManager {
     constructor(promptGenerator, uiMessageManager) {
@@ -21,10 +21,7 @@ class PromptPreviewManager {
         const highlighted = this.promptGenerator.highlightPrompt(finalPrompt);
         previewContainer.innerHTML = highlighted;
 
-        // Update token count
-        this.updateTokenCount(finalPrompt);
-
-        // Update copy button state
+        // Update copy button state (token count no longer displayed)
         const copyButton = document.getElementById('copy-prompt-button');
         if (copyButton) {
             copyButton.disabled = !finalPrompt.trim() || finalPrompt.includes("Ihr Prompt wird hier erscheinen");
@@ -48,86 +45,25 @@ class PromptPreviewManager {
      * Update the token count
      */
     updateTokenCount(text = '') {
-        const tokenCountElement = document.getElementById('token-count');
-        if (!tokenCountElement) return;
-
-        // Simple token estimation (more sophisticated counting can be added later)
-        const tokens = text.split(/\\s+/).filter(word => word.length > 0).length;
-        const charCount = text.length;
-
-        tokenCountElement.innerHTML = `
-            <span class="token-info">
-                <i class="fas fa-calculator"></i>
-                ~${tokens} Tokens | ${charCount} Zeichen
-            </span>
-        `;
-
-        // Add warning for very long prompts
-        if (tokens > 2000) {
-            tokenCountElement.classList.add('warning');
-            const tooltip = document.createElement('div');
-            tooltip.className = 'token-warning-tooltip';
-            tooltip.textContent = 'Sehr langer Prompt - könnte Modellgrenzen überschreiten';
-            tokenCountElement.appendChild(tooltip);
-        } else {
-            tokenCountElement.classList.remove('warning');
-            const existingTooltip = tokenCountElement.querySelector('.token-warning-tooltip');
-            if (existingTooltip) {
-                existingTooltip.remove();
-            }
-        }
+        // Token counter removed from UI - no longer updating
+        return;
     }
 
     /**
      * Update token count with color coding
      */
     updateTokenCountWithColors(text = '') {
-        const tokenCountElement = document.getElementById('token-count');
-        if (!tokenCountElement) return;
-
-        const tokens = text.split(/\\s+/).filter(word => word.length > 0).length;
-        const charCount = text.length;
-
-        // Remove existing color classes
-        tokenCountElement.classList.remove('token-low', 'token-medium', 'token-high', 'token-warning');
-
-        // Add color coding based on token count
-        if (tokens === 0) {
-            tokenCountElement.classList.add('token-low');
-        } else if (tokens <= 500) {
-            tokenCountElement.classList.add('token-low');
-        } else if (tokens <= 1500) {
-            tokenCountElement.classList.add('token-medium');
-        } else if (tokens <= 3000) {
-            tokenCountElement.classList.add('token-high');
-        } else {
-            tokenCountElement.classList.add('token-warning');
-        }
-
-        tokenCountElement.innerHTML = `
-            <span class="token-info">
-                <i class="fas fa-calculator"></i>
-                ~${tokens} Tokens | ${charCount} Zeichen
-            </span>
-        `;
+        // Token counter removed from UI - no longer updating
+        return;
     }
 
     /**
      * Initialize token information display
      */
     initializeTokenInfo() {
-        if (this.tokenInfoInitialized) return;
-
-        const tokenCountElement = document.getElementById('token-count');
-        if (tokenCountElement) {
-            tokenCountElement.innerHTML = `
-                <span class="token-info">
-                    <i class="fas fa-calculator"></i>
-                    0 Tokens | 0 Zeichen
-                </span>
-            `;
-            this.tokenInfoInitialized = true;
-        }
+        // Token counter removed from UI - no longer initializing
+        this.tokenInfoInitialized = true;
+        return;
     }
 
     /**

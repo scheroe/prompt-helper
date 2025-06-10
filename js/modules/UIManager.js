@@ -5,7 +5,7 @@
  * - TechniqueUIManager: Verwaltet Technik-UI-Elemente
  * - TemplateUIManager: Verwaltet Template-UI-Elemente
  * - DynamicFieldManager: Verwaltet dynamische Felder
- * - PromptPreviewManager: Verwaltet Prompt-Preview und Token-Zählung
+ * - PromptPreviewManager: Verwaltet Prompt-Preview (Token-Zählung entfernt)
  * - UIEventHandler: Verwaltet alle Event-Listener
  * - UIMessageManager: Verwaltet Nachrichten und Benachrichtigungen
  */
@@ -92,7 +92,7 @@ class UIManager {
             this.techniqueUIManager.createTechniqueSelectors();
             this.templateUIManager.createTemplateBlocks();
             this.uiEventHandler.setupEventListeners();
-            this.promptPreviewManager.initializeTokenInfo();
+            // Token info initialization removed
             
             this.initialized = true;
             console.log('UIManager: Erfolgreich initialisiert');
@@ -195,12 +195,15 @@ class UIManager {
         return this.promptPreviewManager.updatePromptPreviewWithValues(taskDescription, basePrompt, outputFormat);
     }
 
+    // Token counting methods removed - no longer displayed in UI
     updateTokenCount(text) {
-        return this.promptPreviewManager.updateTokenCount(text);
+        // Token counter removed from UI
+        return;
     }
 
     updateTokenCountWithColors(text) {
-        return this.promptPreviewManager.updateTokenCountWithColors(text);
+        // Token counter removed from UI
+        return;
     }
 
     copyPromptToClipboard() {
@@ -237,9 +240,7 @@ class UIManager {
     }
 
     // Utility methods
-    initializeTokenInfo() {
-        return this.promptPreviewManager.initializeTokenInfo();
-    }
+    // Token info initialization removed - no longer needed
 
     updateTechniqueCount() {
         return this.techniqueUIManager.updateTechniqueCount();

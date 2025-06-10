@@ -92,9 +92,9 @@
     color: #065f46;
 }
 
-.template-type-badge.code-generation {
-    background: #f3e8ff;
-    color: #7c2d12;
+.template-type-badge.text-analysis {
+    background: #e0f2fe;
+    color: #0277bd;
 }
 
 .template-type-badge.creative {
@@ -110,6 +110,11 @@
 .template-type-badge.interactive {
     background: #fed7d7;
     color: #c53030;
+}
+
+.template-type-badge.critical-analysis {
+    background: #fff3cd;
+    color: #856404;
 }
 
 /* =====================================

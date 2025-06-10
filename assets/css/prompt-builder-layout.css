@@ -1,6 +1,31 @@
 /* Layout-spezifische Styles für den Prompt Builder */
 
 /* =====================================
+   HERO/HEADER SECTION
+   ===================================== */
+.section-header {
+    /* Beschränke die Breite auf die mittlere Spalte der 3-Spalten-Layout */
+    max-width: calc(1800px * 5 / 11); /* 5fr von 11fr (3+5+3) des max-width */
+    margin: 0 auto 32px auto;
+    padding: 0 16px;
+    text-align: center;
+}
+
+.section-header h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.section-header p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* =====================================
    GRID LAYOUT SYSTEM
    ===================================== */
 .main-layout {
@@ -38,9 +63,14 @@
     margin-top: 0;
     margin-bottom: 16px;
     color: #333;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     border-bottom: 2px solid #4a6cf7;
     padding-bottom: 8px;
+    line-height: 1.4;
+    min-height: 2.5rem; /* Einheitliche Mindesthöhe */
+    display: flex;
+    align-items: center;
 }
 
 .builder-section {
@@ -61,11 +91,16 @@
 
 .examples-sidebar h3 {
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     color: #333;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     border-bottom: 2px solid #4a6cf7;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
+    line-height: 1.4;
+    min-height: 2.5rem; /* Einheitliche Mindesthöhe */
+    display: flex;
+    align-items: center;
 }
 
 .example-gallery-sidebar {
@@ -96,12 +131,20 @@
         gap: 32px;
         padding: 0 24px;
     }
+    
+    .section-header {
+        padding: 0 24px;
+    }
 }
 
 /* Extra Large Desktop (1920px+) - Ultra-wide monitors */
 @media (min-width: 120rem) { /* 1920px */
     .main-layout {
         gap: 40px;
+        padding: 0 40px;
+    }
+    
+    .section-header {
         padding: 0 40px;
     }
 }
@@ -116,6 +159,12 @@
         left: auto;
         transform: none;
         width: 100%;
+    }
+    
+    .section-header {
+        max-width: 100%;
+        padding: 0 16px;
+        margin-bottom: 24px;
     }
     
     .techniques-sidebar,
@@ -146,6 +195,10 @@
         gap: 20px;
     }
     
+    .section-header {
+        padding: 0 12px;
+    }
+    
     .wizard-steps {
         flex-direction: column;
         margin-bottom: 20px;
@@ -169,6 +222,10 @@
     .main-layout {
         padding: 0 8px;
         gap: 16px;
+    }
+    
+    .section-header {
+        padding: 0 8px;
     }
     
     .techniques-sidebar,
@@ -253,7 +310,14 @@
 .form-header h3 {
     margin: 0 0 8px 0;
     color: #333;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    min-height: 2.5rem; /* Einheitliche Mindesthöhe */
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #4a6cf7;
+    padding-bottom: 8px;
 }
 
 .form-header p {
