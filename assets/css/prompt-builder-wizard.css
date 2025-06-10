@@ -1,0 +1,128 @@
+/* Wizard-spezifische Styles für den Prompt Builder */
+
+/* =====================================
+   WIZARD STEPS
+   ===================================== */
+
+/* Step-by-step wizard styles */
+.wizard-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.wizard-step {
+    flex: 1;
+    text-align: center;
+    padding: 15px 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 0 5px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.wizard-step.active {
+    background: #e6f0ff;
+    border-color: #4a6cf7;
+    box-shadow: 0 4px 6px rgba(74, 108, 247, 0.1);
+}
+
+.wizard-step.completed {
+    background: #e6f7e6;
+    border-color: #38a169;
+}
+
+.wizard-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    border: 2px solid #ddd;
+}
+
+.wizard-step.active .wizard-step-number {
+    background: #4a6cf7;
+    color: #fff;
+    border-color: #4a6cf7;
+}
+
+.wizard-step.completed .wizard-step-number {
+    background: #38a169;
+    color: #fff;
+    border-color: #38a169;
+}
+
+.wizard-step-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+}
+
+.wizard-step-description {
+    font-size: 0.7rem;
+    color: #666;
+    display: none;
+}
+
+.wizard-step.active .wizard-step-description {
+    display: block;
+}
+
+.wizard-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e1e4e8;
+}
+
+.wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.progress-indicator {
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #4a6cf7;
+    width: 25%; /* Will be updated by JS */
+    transition: width 0.3s ease;
+}
+
+/* =====================================
+   RESPONSIVE WIZARD STYLES
+   ===================================== */
+@media (max-width: 992px) {
+    .wizard-steps {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    
+    .wizard-step {
+        margin: 5px 0;
+    }
+    
+    .wizard-step-description {
+        display: none;
+    }
+}

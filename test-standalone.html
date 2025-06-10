@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Test - Prompt Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #3451b2;
+        }
+        .iframe-container {
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Standalone Prompt-Builder Test</h1>
+    
+    <div class="test-section">
+        <h2>📁 Datei-Struktur Tests</h2>
+        <div id="file-tests"></div>
+        <button onclick="runFileTests()">Tests ausführen</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔗 Abhängigkeiten Tests</h2>
+        <div id="dependency-tests"></div>
+        <button onclick="runDependencyTests()">Tests ausführen</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>⚡ Funktionalitäts Tests</h2>
+        <div id="functionality-tests"></div>
+        <button onclick="runFunctionalityTests()">Tests ausführen</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Live Preview</h2>
+        <p>Hier wird der Prompt-Builder in einem Iframe geladen:</p>
+        <button onclick="loadPreview()">Preview laden</button>
+        <div class="iframe-container" id="preview-container" style="display: none;">
+            <iframe id="preview-iframe" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        function addTestResult(containerId, message, status) {
+            const container = document.getElementById(containerId);
+            const result = document.createElement('div');
+            result.className = `test-result test-${status}`;
+            result.innerHTML = `${status === 'pass' ? '✅' : status === 'fail' ? '❌' : 'ℹ️'} ${message}`;
+            container.appendChild(result);
+        }
+
+        async function runFileTests() {
+            const container = document.getElementById('file-tests');
+            container.innerHTML = '';
+            
+            const files = [
+                'index.html',
+                'assets/css/styles.css',
+                'assets/css/prompt-builder-techniques.css',
+                'assets/js/data-loader.js',
+                'js/PromptBuilder.js',
+                'js/modules/TechniqueManager.js',
+                'data/processed/techniques.json'
+            ];
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        addTestResult('file-tests', `${file} gefunden`, 'pass');
+                    } else {
+                        addTestResult('file-tests', `${file} nicht gefunden (${response.status})`, 'fail');
+                    }
+                } catch (error) {
+                    addTestResult('file-tests', `${file} Fehler: ${error.message}`, 'fail');
+                }
+            }
+        }
+
+        async function runDependencyTests() {
+            const container = document.getElementById('dependency-tests');
+            container.innerHTML = '';
+            
+            // Test external dependencies
+            const externals = [
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+                'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap'
+            ];
+            
+            for (const url of externals) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.ok) {
+                        addTestResult('dependency-tests', `External: ${url.split('/').pop()} verfügbar`, 'pass');
+                    } else {
+                        addTestResult('dependency-tests', `External: ${url.split('/').pop()} nicht verfügbar`, 'fail');
+                    }
+                } catch (error) {
+                    addTestResult('dependency-tests', `External: ${url.split('/').pop()} Fehler`, 'fail');
+                }
+            }
+            
+            // Test local data files
+            try {
+                const response = await fetch('data/processed/techniques.json');
+                const data = await response.json();
+                if (data.categories && Array.isArray(data.categories)) {
+                    addTestResult('dependency-tests', `Techniques.json: ${data.categories.length} Kategorien geladen`, 'pass');
+                } else {
+                    addTestResult('dependency-tests', 'Techniques.json: Ungültiges Format', 'fail');
+                }
+            } catch (error) {
+                addTestResult('dependency-tests', `Techniques.json: ${error.message}`, 'fail');
+            }
+        }
+
+        function runFunctionalityTests() {
+            const container = document.getElementById('functionality-tests');
+            container.innerHTML = '';
+            
+            addTestResult('functionality-tests', 'Funktionalitätstests müssen in der Live-Umgebung ausgeführt werden', 'info');
+            addTestResult('functionality-tests', 'Bitte verwenden Sie den Live Preview unten', 'info');
+        }
+
+        function loadPreview() {
+            const container = document.getElementById('preview-container');
+            const iframe = document.getElementById('preview-iframe');
+            
+            iframe.src = 'index.html';
+            container.style.display = 'block';
+            
+            iframe.onload = function() {
+                addTestResult('functionality-tests', 'Prompt-Builder erfolgreich geladen', 'pass');
+            };
+            
+            iframe.onerror = function() {
+                addTestResult('functionality-tests', 'Fehler beim Laden des Prompt-Builders', 'fail');
+            };
+        }
+
+        // Auto-run file tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runFileTests, 500);
+        });
+    </script>
+</body>
+</html>

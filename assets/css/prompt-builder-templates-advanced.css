@@ -1,0 +1,514 @@
+/* Advanced Template System CSS */
+/* =====================================
+   TEMPLATE-TECHNIQUE AUTO-LINKING
+   ===================================== */
+
+/* Auto-selected technique visual indicator */
+.technique-item.auto-selected {
+    background: linear-gradient(135deg, #e6f0ff 0%, #f0f8ff 100%);
+    border-color: #4a6cf7;
+    position: relative;
+    opacity: 0.85;
+}
+
+.technique-item.auto-selected::before {
+    content: "🔗";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.7rem;
+    background: #4a6cf7;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.technique-item.auto-selected .technique-title {
+    font-style: italic;
+    color: #4a6cf7;
+}
+
+.technique-item.auto-selected .technique-description {
+    opacity: 0.8;
+}
+
+/* Auto-selection info banner */
+.auto-selection-info {
+    background: linear-gradient(135deg, #e6f0ff 0%, #f0f8ff 100%);
+    border: 1px solid #4a6cf7;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    font-size: 0.8rem;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auto-selection-info::before {
+    content: "🔗";
+    font-size: 1rem;
+}
+
+.auto-selection-info.hidden {
+    display: none;
+}
+
+/* =====================================
+   SPECIALIZED TEMPLATE TYPES
+   ===================================== */
+
+/* Template type badges */
+.template-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.template-type-badge.persona {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.template-type-badge.few-shot {
+    background: #ddd6fe;
+    color: #6b46c1;
+}
+
+.template-type-badge.step-by-step {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.template-type-badge.code-generation {
+    background: #f3e8ff;
+    color: #7c2d12;
+}
+
+.template-type-badge.creative {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.template-type-badge.question-answering {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.template-type-badge.interactive {
+    background: #fed7d7;
+    color: #c53030;
+}
+
+/* =====================================
+   DYNAMIC FIELDS
+   ===================================== */
+
+.dynamic-field-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fafafa;
+}
+
+.dynamic-field-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.dynamic-field-title {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.dynamic-field-add-btn {
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.dynamic-field-add-btn:hover {
+    background: #059669;
+    transform: scale(1.05);
+}
+
+.dynamic-field-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+
+.dynamic-field-item:last-child {
+    margin-bottom: 0;
+}
+
+.dynamic-field-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: border-color 0.2s ease;
+}
+
+.dynamic-field-input:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+.dynamic-field-input.textarea {
+    min-height: 60px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.dynamic-field-remove-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.dynamic-field-remove-btn:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+.dynamic-field-placeholder {
+    color: #9ca3af;
+    font-style: italic;
+    padding: 12px;
+    text-align: center;
+    border: 2px dashed #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+}
+
+/* =====================================
+   TEMPLATE SECTIONS
+   ===================================== */
+
+.template-section {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: white;
+    overflow: hidden;
+}
+
+.template-section-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.template-section-title {
+    font-weight: 600;
+    color: #374151;
+    font-size: 1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.template-section-description {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin: 4px 0 0 0;
+    line-height: 1.4;
+}
+
+.template-section-content {
+    padding: 20px;
+}
+
+.template-field-group {
+    margin-bottom: 20px;
+}
+
+.template-field-group:last-child {
+    margin-bottom: 0;
+}
+
+.template-field-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.template-field-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.template-field-input:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+.template-field-input.textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.template-field-helper {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 4px;
+    line-height: 1.3;
+}
+
+/* =====================================
+   ADVANCED OPTIONS
+   ===================================== */
+
+.advanced-options-section {
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 20px;
+}
+
+.advanced-options-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #4b5563;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+    transition: color 0.2s ease;
+}
+
+.advanced-options-toggle:hover {
+    color: #374151;
+}
+
+.advanced-options-toggle .toggle-icon {
+    transition: transform 0.2s ease;
+}
+
+.advanced-options-toggle.expanded .toggle-icon {
+    transform: rotate(90deg);
+}
+
+.advanced-options-content {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.advanced-options-content.visible {
+    display: grid;
+}
+
+.advanced-option-group {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.advanced-option-label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+}
+
+.advanced-option-input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* =====================================
+   TEMPLATE FIELD VALIDATION
+   ===================================== */
+
+.template-field-input.invalid {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.template-field-error {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: none;
+}
+
+.template-field-error.visible {
+    display: block;
+}
+
+.template-field-input.valid {
+    border-color: #10b981;
+}
+
+.template-field-success {
+    color: #10b981;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: none;
+}
+
+.template-field-success.visible {
+    display: block;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+   ===================================== */
+
+@media (max-width: 768px) {
+    .template-section-header {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .template-section-content {
+        padding: 16px;
+    }
+    
+    .dynamic-field-item {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .dynamic-field-remove-btn {
+        align-self: flex-end;
+    }
+    
+    .advanced-options-content {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .dynamic-field-add-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* =====================================
+   ANIMATIONS
+   ===================================== */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.template-section {
+    animation: slideIn 0.3s ease-out;
+}
+
+.dynamic-field-item {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.auto-selection-info {
+    animation: slideIn 0.4s ease-out;
+}
+
+/* =====================================
+   UTILITY CLASSES
+   ===================================== */
+
+.template-hidden {
+    display: none !important;
+}
+
+.template-visible {
+    display: block !important;
+}
+
+.template-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.template-highlight {
+    background: #fef3c7 !important;
+    border-color: #f59e0b !important;
+    transition: all 0.3s ease;
+}
+
+.template-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

@@ -1,0 +1,102 @@
+{
+  "categories": [
+    {
+      "id": "basic-concepts",
+      "name": "Grundkonzepte",
+      "description": "",
+      "techniques": [
+        {
+          "id": "zero-shot-prompting",
+          "name": "Zero-Shot Prompting",
+          "aliases": [],
+          "description": "Das Modell bitten, eine Aufgabe ohne Beispiele auszuführen.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Allzweckaufgaben, bei denen keine Beispiele verfügbar sind.",
+          "example": "Übersetze 'Hallo' ins Französische."
+        },
+        {
+          "id": "few-shot-prompting",
+          "name": "Few-Shot Prompting",
+          "aliases": [],
+          "description": "Einige Beispiele im Prompt bereitstellen, um das Modell anzuleiten.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Aufgaben, bei denen eine kleine Anzahl von Beispielen die Absicht verdeutlichen kann.",
+          "example": "Übersetze 'Hallo' ins Französische: Bonjour. Übersetze 'Auf Wiedersehen' ins Französische:"
+        }
+      ]
+    },
+    {
+      "id": "reasoning-frameworks",
+      "name": "Denkrahmen",
+      "description": "",
+      "techniques": [
+        {
+          "id": "chain-of-thought-prompting",
+          "name": "Chain-of-Thought (CoT) Prompting",
+          "aliases": [],
+          "description": "Schrittweises Denken vor der endgültigen Antwort hervorrufen, normalerweise über Few-Shot-Beispiele.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Komplexe Denk- oder mehrstufige Probleme.",
+          "example": "F: Wenn es 3 Autos gibt und jedes Auto 4 Räder hat, wie viele Räder gibt es? A: Denken wir Schritt für Schritt..."
+        },
+        {
+          "id": "least-to-most-prompting",
+          "name": "Least-to-Most Prompting",
+          "aliases": [],
+          "description": "Ein Problem in Teilprobleme zerlegen und sequenziell lösen.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Komplexe Aufgaben, die eine Zerlegung erfordern.",
+          "example": "Ein mathematisches Problem in kleinere Schritte zerlegen und jeden lösen."
+        }
+      ]
+    },
+    {
+      "id": "self-improvement",
+      "name": "Selbstverbesserung",
+      "description": "",
+      "techniques": [
+        {
+          "id": "self-consistency",
+          "name": "Self-Consistency",
+          "aliases": [],
+          "description": "Mehrere Denkpfade abtasten und Mehrheitsentscheid für die endgültige Antwort verwenden.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Reduzierung von Fehlern bei komplexem Denken.",
+          "example": "Mehrere Lösungen generieren und dann die häufigste Antwort auswählen."
+        },
+        {
+          "id": "self-refine-prompting",
+          "name": "Self-Refine",
+          "aliases": [],
+          "description": "Iterativ: generieren, Feedback erhalten und die Ausgabe verbessern.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Verbesserung der Ausgabequalität durch Iteration.",
+          "example": "Eine Antwort schreiben, kritisieren und überarbeiten."
+        }
+      ]
+    },
+    {
+      "id": "retrieval-augmentation",
+      "name": "Abruf & Erweiterung",
+      "description": "",
+      "techniques": [
+        {
+          "id": "retrieval-augmented-generation",
+          "name": "RAG (Retrieval Augmented Generation)",
+          "aliases": [],
+          "description": "Externe Informationen abrufen und zum Prompt-Kontext hinzufügen.",
+          "sources": [],
+          "relatedTechniques": [],
+          "useCase": "Aufgaben, die aktuelles oder externes Wissen erfordern.",
+          "example": "Relevante Dokumente abrufen, bevor eine Frage beantwortet wird."
+        }
+      ]
+    }
+  ]
+}

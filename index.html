@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiver Prompt-Builder</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-layout.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-modals.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-typography.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-wizard.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-techniques.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-forms.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-templates-advanced.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-preview.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-additional-modals.css">
+    <link rel="stylesheet" href="assets/css/technique-details-modal.css">
+    <link rel="stylesheet" href="assets/css/prompt-builder-utilities.css">
+    <link rel="stylesheet" href="assets/css/standalone-header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <h1><i class="fas fa-magic"></i> Prompt-Builder</h1>
+                <span class="header-subtitle">Erstellen Sie effektive KI-Prompts</span>
+            </div>
+            <div class="header-right">
+                <nav class="header-nav">
+                    <a href="#about" class="nav-link">Über</a>
+                    <a href="#help" class="nav-link">Hilfe</a>
+                    <a href="https://github.com/your-username/prompt-builder-standalone" class="nav-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section-header">
+            <h2>Interaktiver Prompt-Builder</h2>
+            <p>Erstellen Sie effektive Prompts durch Kombination von bewährten Prompt-Engineering-Techniken. Wählen Sie Techniken aus, fügen Sie Ihre Aufgabendetails hinzu und generieren Sie einen für Ihre Bedürfnisse optimierten Prompt.</p>
+        </section>
+
+        <div class="main-layout">
+            <section class="techniques-sidebar">
+                <h3><i class="fas fa-list-check"></i> Techniken auswählen</h3>
+
+                <div id="technique-selector">
+                    <!-- Technique selectors will be populated by JavaScript -->
+                    <div class="loading">
+                        <p>Loading techniques...</p>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="builder-section">
+                <div class="prompt-builder-container">
+                    <!-- Direct form view - no wizard navigation -->
+                    <div class="form-header">
+                        <h3><i class="fas fa-pen-to-square"></i> Prompt Details</h3>
+                        <p>Füllen Sie die Details aus, um Ihren Prompt zu erstellen. Wählen Sie Techniken links, um zusätzliche Optionen zu aktivieren.</p>
+                    </div>
+
+                    <!-- Main form content (previously step 2) -->
+                    <div class="main-form-content" id="main-form-content">
+                        
+                        <div class="prompt-inputs-container">
+                            <div class="input-group">
+                                <label for="base-prompt"><i class="fas fa-user-gear"></i> Basis-Prompt (optional):</label>
+                                <textarea id="base-prompt" placeholder="z.B. Du bist ein erfahrener Texter mit 20 Jahren Berufserfahrung..."></textarea>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="task-description"><i class="fas fa-tasks"></i> Aufgabenbeschreibung:</label>
+                                <textarea id="task-description" placeholder="Beschreiben Sie die Aufgabe, die die KI ausführen soll..."></textarea>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="output-format"><i class="fas fa-file-export"></i> Ausgabeformat (optional):</label>
+                                <textarea id="output-format" placeholder="Geben Sie das gewünschte Format für die Antwort an..."></textarea>
+                            </div>
+
+                            <!-- Dynamic technique-specific fields will be inserted here -->
+                            <div id="dynamic-technique-fields" class="dynamic-technique-fields"></div>
+                            
+                            <!-- Action button to proceed to preview -->
+                            <div class="form-actions">
+                                <button id="generate-preview-button" class="button primary large">
+                                    <i class="fas fa-magic"></i> Prompt generieren & Vorschau anzeigen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview section (previously step 3) - initially hidden -->
+                    <div class="preview-section" id="preview-section" style="display: none;">
+                        
+                        <div class="preview-header">
+                            <h3><i class="fas fa-check-circle"></i> Generierter Prompt</h3>
+                            <button id="collapse-preview-button" class="button secondary small">
+                                <i class="fas fa-chevron-up"></i> Vorschau ausblenden
+                            </button>
+                        </div>
+                        
+                        <div class="prompt-preview-container">
+                            <div id="prompt-preview">
+                                Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
+                            </div>
+                            <div class="prompt-actions">
+                                <div id="token-count" class="token-counter">
+                                    <i class="fas fa-calculator"></i>
+                                    <span id="token-count-text"> 0 Tokens (0 Zeichen)</span>
+                                    <button class="token-info-button" title="Token-Berechnung Info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                                <div class="prompt-actions-right">
+                                    <button id="clear-prompt-button" class="button secondary"><i class="fas fa-eraser"></i> Löschen</button>
+                                    <button id="save-prompt-button" class="button secondary"><i class="fas fa-save"></i> Speichern</button>
+                                    <button id="export-prompt-button" class="button secondary"><i class="fas fa-file-export"></i> Exportieren</button>
+                                    <button id="copy-prompt-button" class="button primary" disabled><i class="fas fa-copy"></i> In Zwischenablage kopieren</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-actions">
+                            <button id="start-over-button" class="button secondary">Neu starten <i class="fas fa-redo"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="examples-sidebar">
+                <h3><i class="fas fa-lightbulb"></i> Beispiel-Prompts</h3>
+                
+                <div class="example-gallery-sidebar">
+                    <div class="example-card">
+                        <div class="example-card-header">
+                            <h4>Komplexe Problemlösung</h4>
+                        </div>
+                        <div class="example-card-body">
+                            <p>Ein Prompt, der Chain-of-Thought und Self-Consistency für die Lösung komplexer Denkprobleme verwendet.</p>
+                            <div class="example-techniques">
+                                <span class="example-technique">Chain-of-Thought</span>
+                                <span class="example-technique">Self-Consistency</span>
+                            </div>
+                            <button class="button primary use-example-button" data-example="complex-reasoning">Diese Vorlage verwenden</button>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-card-header">
+                            <h4>Kreative Inhaltsgenerierung</h4>
+                        </div>
+                        <div class="example-card-body">
+                            <p>Generieren Sie kreative Inhalte mit spezifischen Vorgaben und Expertenrollen.</p>
+                            <div class="example-techniques">
+                                <span class="example-technique">Role Prompting</span>
+                                <span class="example-technique">Few-Shot Examples</span>
+                                <span class="example-technique">Output Constraints</span>
+                            </div>
+                            <button class="button primary use-example-button" data-example="creative-content">Diese Vorlage verwenden</button>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-card-header">
+                            <h4>Code-Generierung</h4>
+                        </div>
+                        <div class="example-card-body">
+                            <p>Generieren Sie hochwertigen Code mit Testfällen und Erläuterungen.</p>
+                            <div class="example-techniques">
+                                <span class="example-technique">Self-Correction</span>
+                                <span class="example-technique">Structured Chain-of-Thought</span>
+                            </div>
+                            <button class="button primary use-example-button" data-example="code-generation">Diese Vorlage verwenden</button>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-card-header">
+                            <h4>Forschungsanalyse</h4>
+                        </div>
+                        <div class="example-card-body">
+                            <p>Analysieren und synthetisieren Sie Informationen aus mehreren Quellen.</p>
+                            <div class="example-techniques">
+                                <span class="example-technique">ReAct</span>
+                                <span class="example-technique">Tree of Thoughts</span>
+                            </div>
+                            <button class="button primary use-example-button" data-example="research-analysis">Diese Vorlage verwenden</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Token Info Modal -->
+    <div id="token-info-modal" class="token-info-modal">
+        <div class="token-info-modal-content">
+            <span class="token-info-close">&times;</span>
+            <h3>Token-Berechnung</h3>
+            <p>Es empfiehlt sich, von der Annahme auszugehen, dass ein Token im Allgemeinen etwa vier Zeichen Text für einen gewöhnlichen englischen Text entspricht. Dies entspricht in etwa drei Viertel eines Wortes (also 100 Token ~= 75 Wörter).</p>
+            <div class="token-info-source">
+                <strong>Quelle:</strong> 
+                <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them" target="_blank" rel="noopener noreferrer">
+                    OpenAI - What are tokens and how to count them
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/header-footer.js"></script>
+    
+    <!-- Load data-loader for rich taxonomy data -->
+    <script src="assets/js/data-loader.js"></script>
+    
+    <!-- Modular Prompt Builder Scripts - Loading in dependency order -->
+    <script src="js/modules/TechniqueManager.js"></script>
+    <script src="js/modules/TemplateManager.js"></script>
+    <script src="js/modules/PromptGenerator.js"></script>
+    
+    <!-- UI Module Dependencies -->
+    <script src="js/modules/ui/UIMessageManager.js"></script>
+    <script src="js/modules/ui/UIEventHandler.js"></script>
+    <script src="js/modules/ui/TechniqueUIManager.js"></script>
+    <script src="js/modules/ui/TemplateUIManager.js"></script>
+    <script src="js/modules/ui/DynamicFieldManager.js"></script>
+    <script src="js/modules/ui/PromptPreviewManager.js"></script>
+    <script src="js/modules/UIManager.js"></script>
+    
+    <script src="js/modules/StorageManager.js"></script>
+    <script src="js/modules/FormManager.js"></script>
+    <script src="js/modules/EventManager_Direct.js"></script>
+    <script src="js/PromptBuilder.js"></script>
+    
+    <script>
+        // Initialize the modular Prompt Builder
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Initialisiere eigenständigen Prompt Builder...');
+            try {
+                window.promptBuilder = new PromptBuilder();
+                await window.promptBuilder.init();
+                console.log('✅ Prompt Builder erfolgreich initialisiert');
+            } catch (error) {
+                console.error('❌ Fehler bei der Initialisierung:', error);
+                
+                // Fallback: Show error message to user
+                const techniqueSelector = document.getElementById('technique-selector');
+                if (techniqueSelector) {
+                    techniqueSelector.innerHTML = `
+                        <div class="error-message">
+                            <h4>⚠️ Fehler beim Laden</h4>
+                            <p>Die Techniken konnten nicht geladen werden. Bitte laden Sie die Seite neu.</p>
+                            <button onclick="location.reload()" class="retry-button">↻ Seite neu laden</button>
+                        </div>
+                    `;
+                }
+            }
+        });
+    </script>
+    
+    <!-- Hidden file input for importing prompts -->
+    <input type="file" id="import-file" style="display: none;" accept=".json">
+    
+    <!-- Notification container for user feedback -->
+    <div id="notification-container" class="notification-container"></div>
+    
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal" style="display: none;">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="help-content">
+                <h3>Prompt-Builder Hilfe</h3>
+                <p>Dieser Prompt-Builder hilft Ihnen dabei, effektive KI-Prompts zu erstellen:</p>
+                <ul>
+                    <li><strong>Techniken wählen:</strong> Wählen Sie aus einer Vielzahl bewährter Prompt-Engineering-Techniken</li>
+                    <li><strong>Details eingeben:</strong> Beschreiben Sie Ihre Aufgabe und gewünschte Ausgabe</li>
+                    <li><strong>Prompt generieren:</strong> Lassen Sie einen optimierten Prompt erstellen</li>
+                    <li><strong>Kopieren & verwenden:</strong> Nutzen Sie den generierten Prompt in Ihren KI-Anwendungen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "categories": [
+    {
+      "id": "basic-concepts",
+      "name": "Grundkonzepte",
+      "description": "",
+      "techniques": [
+        "Zero-Shot Prompting",
+        "Few-Shot Prompting"
+      ]
+    },
+    {
+      "id": "reasoning-frameworks",
+      "name": "Denkrahmen",
+      "description": "",
+      "techniques": [
+        "Chain-of-Thought (CoT) Prompting",
+        "Least-to-Most Prompting"
+      ]
+    },
+    {
+      "id": "agent-tool-use",
+      "name": "Agenten- & Werkzeugnutzung",
+      "description": "",
+      "techniques": []
+    },
+    {
+      "id": "self-improvement",
+      "name": "Selbstverbesserung",
+      "description": "",
+      "techniques": [
+        "Self-Consistency",
+        "Self-Refine"
+      ]
+    },
+    {
+      "id": "retrieval-augmentation",
+      "name": "Abruf & Erweiterung",
+      "description": "",
+      "techniques": [
+        "RAG (Retrieval Augmented Generation)"
+      ]
+    },
+    {
+      "id": "prompt-optimization",
+      "name": "Prompt-Optimierung",
+      "description": "",
+      "techniques": []
+    },
+    {
+      "id": "multimodal-techniques",
+      "name": "Multimodale Techniken",
+      "description": "",
+      "techniques": []
+    },
+    {
+      "id": "specialized-application",
+      "name": "Spezialisierte Anwendungen",
+      "description": "",
+      "techniques": []
+    }
+  ]
+}
