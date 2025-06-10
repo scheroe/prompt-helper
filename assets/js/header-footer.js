@@ -1,6 +1,6 @@
 /**
  * header-footer.js
- * Standalone header for Prompt Builder
+ * Standalone header for Prompt Helper
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -27,14 +27,14 @@ function injectStandaloneHeader() {
     const headerHTML = `
         <div class="header-container">
             <div class="header-left">
-                <h1><i class="fas fa-magic"></i> Prompt-Builder</h1>
+                <h1><i class="fas fa-magic"></i> Prompt-Helper</h1>
                 <span class="header-subtitle">Erstellen Sie effektive KI-Prompts</span>
             </div>
             <div class="header-right">
                 <nav class="header-nav">
                     <button class="nav-button" id="about-button">Über</button>
                     <button class="nav-button" id="help-button">Hilfe</button>
-                    <a href="https://github.com/your-username/prompt-builder-standalone" class="nav-link" target="_blank">
+                    <a href="https://github.com/scheroe/prompt-helper" class="nav-link" target="_blank">
                         <i class="fab fa-github"></i> GitHub
                     </a>
                 </nav>
@@ -71,8 +71,8 @@ function showAboutModal() {
     
     if (modal && content) {
         content.innerHTML = `
-            <h3>Über den Prompt-Builder</h3>
-            <p>Dieser interaktive Prompt-Builder hilft Ihnen dabei, effektive Prompts für KI-Anwendungen zu erstellen.</p>
+            <h3>Über den Prompt-Helper</h3>
+            <p>Dieser interaktive Prompt-Helper hilft Ihnen dabei, effektive Prompts für KI-Anwendungen zu erstellen.</p>
             <h4>Features:</h4>
             <ul>
                 <li>Bewährte Prompt-Engineering-Techniken</li>
@@ -96,8 +96,8 @@ function showHelpModal() {
     
     if (modal && content) {
         content.innerHTML = `
-            <h3>Prompt-Builder Hilfe</h3>
-            <p>Dieser Prompt-Builder hilft Ihnen dabei, effektive KI-Prompts zu erstellen:</p>
+            <h3>Prompt-Helper Hilfe</h3>
+            <p>Dieser Prompt-Helper hilft Ihnen dabei, effektive KI-Prompts zu erstellen:</p>
             <h4>Schritt-für-Schritt Anleitung:</h4>
             <ol>
                 <li><strong>Techniken wählen:</strong> Klicken Sie auf Technik-Karten links, um Details anzuzeigen und verwandte Techniken zu entdecken</li>

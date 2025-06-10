@@ -1,6 +1,6 @@
-# 🚀 Prompt-Builder (Standalone)
+# 🚀 Prompt-Helper
 
-Ein interaktiver Prompt-Builder für die Erstellung effektiver KI-Prompts mit bewährten Prompt-Engineering-Techniken.
+Ein interaktiver Prompt-Helper für die Erstellung effektiver KI-Prompts mit bewährten Prompt-Engineering-Techniken.
 
 ## ✨ Features
 
@@ -13,7 +13,7 @@ Ein interaktiver Prompt-Builder für die Erstellung effektiver KI-Prompts mit be
 
 ## 🚀 Live Demo
 
-[**➤ Prompt-Builder öffnen**](https://your-username.github.io/prompt-builder-standalone/)
+[**➤ Prompt-Helper öffnen**](https://scheroe.github.io/prompt-helper/)
 
 ## 🛠️ Verwendung
 
@@ -61,8 +61,8 @@ Ein interaktiver Prompt-Builder für die Erstellung effektiver KI-Prompts mit be
 ### Installation
 ```bash
 # Repository klonen
-git clone https://github.com/your-username/prompt-builder-standalone.git
-cd prompt-builder-standalone
+git clone https://github.com/scheroe/prompt-helper.git
+cd prompt-helper
 
 # Lokalen Server starten (Python 3)
 python -m http.server 8000
@@ -75,7 +75,7 @@ npx serve .
 
 ### Projektstruktur
 ```
-prompt-builder-standalone/
+prompt-helper/
 ├── index.html              # Hauptseite
 ├── assets/
 │   ├── css/                # Styles
@@ -123,10 +123,10 @@ Dieses Projekt steht unter der MIT Lizenz - siehe [LICENSE](LICENSE) für Detail
 
 ## 📞 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/your-username/prompt-builder-standalone/issues)
-- 💬 **Diskussionen**: [GitHub Discussions](https://github.com/your-username/prompt-builder-standalone/discussions)
-- 📧 **Kontakt**: your-email@example.com
+- 🐛 **Issues**: [GitHub Issues](https://github.com/scheroe/prompt-helper/issues)
+- 💬 **Diskussionen**: [GitHub Discussions](https://github.com/scheroe/prompt-helper/discussions)
+- 📧 **Kontakt**: edgar@example.com
 
 ---
 
-**⭐ Gefällt Ihnen der Prompt-Builder? Geben Sie uns einen Stern auf GitHub!**
+**⭐ Gefällt Ihnen der Prompt-Helper? Geben Sie uns einen Stern auf GitHub!**

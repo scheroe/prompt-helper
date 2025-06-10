@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interaktiver Prompt-Builder</title>
+    <title>Interaktiver Prompt-Helper</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/prompt-builder.css">
     <link rel="stylesheet" href="assets/css/prompt-builder-layout.css">
@@ -25,14 +25,14 @@
     <header>
         <div class="header-container">
             <div class="header-left">
-                <h1><i class="fas fa-magic"></i> Prompt-Builder</h1>
+                <h1><i class="fas fa-magic"></i> Prompt-Helper</h1>
                 <span class="header-subtitle">Erstellen Sie effektive KI-Prompts</span>
             </div>
             <div class="header-right">
                 <nav class="header-nav">
                     <a href="#about" class="nav-link">Über</a>
                     <a href="#help" class="nav-link">Hilfe</a>
-                    <a href="https://github.com/your-username/prompt-builder-standalone" class="nav-link" target="_blank">
+                    <a href="https://github.com/scheroe/prompt-helper" class="nav-link" target="_blank">
                         <i class="fab fa-github"></i> GitHub
                     </a>
                 </nav>
@@ -42,7 +42,7 @@
 
     <main>
         <section class="section-header">
-            <h2>Interaktiver Prompt-Builder</h2>
+            <h2>Interaktiver Prompt-Helper</h2>
             <p>Erstellen Sie effektive Prompts durch Kombination von bewährten Prompt-Engineering-Techniken. Wählen Sie Techniken aus, fügen Sie Ihre Aufgabendetails hinzu und generieren Sie einen für Ihre Bedürfnisse optimierten Prompt.</p>
         </section>
 
@@ -244,11 +244,11 @@
     <script>
         // Initialize the modular Prompt Builder
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🚀 Initialisiere eigenständigen Prompt Builder...');
+            console.log('🚀 Initialisiere eigenständigen Prompt Helper...');
             try {
                 window.promptBuilder = new PromptBuilder();
                 await window.promptBuilder.init();
-                console.log('✅ Prompt Builder erfolgreich initialisiert');
+                console.log('✅ Prompt Helper erfolgreich initialisiert');
             } catch (error) {
                 console.error('❌ Fehler bei der Initialisierung:', error);
                 
@@ -279,8 +279,8 @@
         <div class="modal-content">
             <button class="modal-close">&times;</button>
             <div id="help-content">
-                <h3>Prompt-Builder Hilfe</h3>
-                <p>Dieser Prompt-Builder hilft Ihnen dabei, effektive KI-Prompts zu erstellen:</p>
+                <h3>Prompt-Helper Hilfe</h3>
+                <p>Dieser Prompt-Helper hilft Ihnen dabei, effektive KI-Prompts zu erstellen:</p>
                 <ul>
                     <li><strong>Techniken wählen:</strong> Wählen Sie aus einer Vielzahl bewährter Prompt-Engineering-Techniken</li>
                     <li><strong>Details eingeben:</strong> Beschreiben Sie Ihre Aufgabe und gewünschte Ausgabe</li>
