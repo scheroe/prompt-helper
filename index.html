@@ -103,7 +103,45 @@
                         <div class="prompt-preview-container">
                             <div id="prompt-preview">Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
                             </div>
-                            <!-- Token counter removed -->
+                            
+                            <!-- Prompt Actions -->
+                            <div class="prompt-actions">
+                                <div class="prompt-actions-left">
+                                    <!-- Saved Prompts Dropdown -->
+                                    <div class="saved-prompts-section">
+                                        <label for="saved-prompts-select">Gespeicherte Prompts:</label>
+                                        <div class="saved-prompts-controls">
+                                            <select id="saved-prompts-select" class="saved-prompts-select">
+                                                <option value="">-- Gespeicherten Prompt wählen --</option>
+                                            </select>
+                                            <button id="load-saved-prompt" class="button secondary small" disabled>
+                                                <i class="fas fa-upload"></i> Laden
+                                            </button>
+                                            <button id="edit-saved-prompt" class="button secondary small" disabled>
+                                                <i class="fas fa-edit"></i> Bearbeiten
+                                            </button>
+                                            <button id="delete-saved-prompt" class="button secondary small" disabled>
+                                                <i class="fas fa-trash"></i> Löschen
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="prompt-actions-right">
+                                    <!-- Save Current Prompt -->
+                                    <div class="save-prompt-section">
+                                        <input type="text" id="prompt-name-input" placeholder="Prompt-Name eingeben..." class="prompt-name-input">
+                                        <button id="save-current-prompt" class="button primary small">
+                                            <i class="fas fa-save"></i> Speichern
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Copy Prompt -->
+                                    <button id="copy-prompt-button" class="button secondary small">
+                                        <i class="fas fa-copy"></i> Kopieren
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         
                     </div>
@@ -212,6 +250,7 @@
     
     <script src="js/modules/StorageManager.js"></script>
     <script src="js/modules/FormManager.js"></script>
+    <script src="js/modules/ui/SavedPromptsManager.js"></script>
     <script src="js/modules/EventManager_Direct.js"></script>
     <script src="js/PromptBuilder.js"></script>
     
@@ -261,6 +300,35 @@
                     <li><strong>Prompt generieren:</strong> Lassen Sie einen optimierten Prompt erstellen</li>
                     <li><strong>Kopieren & verwenden:</strong> Nutzen Sie den generierten Prompt in Ihren KI-Anwendungen</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Prompt Modal -->
+    <div id="edit-prompt-modal" class="modal" style="display: none;">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Prompt bearbeiten</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="edit-prompt-name">Prompt-Name:</label>
+                    <input type="text" id="edit-prompt-name" class="form-input">
+                </div>
+                <div class="input-group">
+                    <label for="edit-prompt-content">Prompt-Inhalt:</label>
+                    <textarea id="edit-prompt-content" class="form-textarea" rows="10"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button id="save-edited-prompt" class="button primary">
+                        <i class="fas fa-save"></i> Speichern
+                    </button>
+                    <button id="cancel-edit-prompt" class="button secondary">
+                        <i class="fas fa-times"></i> Abbrechen
+                    </button>
+                </div>
             </div>
         </div>
     </div>

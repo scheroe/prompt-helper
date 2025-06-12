@@ -4,7 +4,25 @@
 class StorageManager {
     constructor() {
         this.savedPrompts = JSON.parse(localStorage.getItem('savedPrompts') || '[]');
+        // Ensure all saved prompts have IDs
+        this.ensurePromptIds();
         this.initialized = false;
+    }
+
+    /**
+     * Ensure all saved prompts have unique IDs
+     */
+    ensurePromptIds() {
+        let needsUpdate = false;
+        this.savedPrompts.forEach(prompt => {
+            if (!prompt.id) {
+                prompt.id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+                needsUpdate = true;
+            }
+        });
+        if (needsUpdate) {
+            localStorage.setItem('savedPrompts', JSON.stringify(this.savedPrompts));
+        }
     }
 
     /**
@@ -55,11 +73,74 @@ class StorageManager {
     }
 
     /**
+     * Save current prompt to localStorage with given name
+     */
+    savePromptWithName(promptData, promptName) {
+        if (!promptName || promptName.trim() === '') {
+            return false;
+        }
+
+        const newSavedPrompt = {
+            id: Date.now().toString(), // Simple ID generation
+            name: promptName.trim(),
+            prompt: promptData.promptText,
+            techniques: [...promptData.selectedTechniques],
+            basePrompt: promptData.basePrompt,
+            taskDescription: promptData.taskDescription,
+            outputFormat: promptData.outputFormat,
+            templates: [...promptData.selectedTemplates],
+            templateFields: {...promptData.templateFields},
+            timestamp: new Date().toISOString()
+        };
+
+        this.savedPrompts.push(newSavedPrompt);
+        localStorage.setItem('savedPrompts', JSON.stringify(this.savedPrompts));
+        
+        return true;
+    }
+
+    /**
      * Load a saved prompt by index
      */
     loadPrompt(index) {
         if (index < 0 || index >= this.savedPrompts.length) return null;
         return this.savedPrompts[index];
+    }
+
+    /**
+     * Update an existing saved prompt
+     */
+    updatePrompt(promptId, updatedData) {
+        const index = this.savedPrompts.findIndex(p => p.id === promptId);
+        if (index === -1) return false;
+
+        this.savedPrompts[index] = {
+            ...this.savedPrompts[index],
+            ...updatedData,
+            timestamp: new Date().toISOString()
+        };
+
+        localStorage.setItem('savedPrompts', JSON.stringify(this.savedPrompts));
+        return true;
+    }
+
+    /**
+     * Delete a saved prompt by ID
+     */
+    deletePromptById(promptId) {
+        const index = this.savedPrompts.findIndex(p => p.id === promptId);
+        if (index === -1) return false;
+        
+        this.savedPrompts.splice(index, 1);
+        localStorage.setItem('savedPrompts', JSON.stringify(this.savedPrompts));
+        return true;
+    }
+
+    /**
+     * Get a saved prompt by ID
+     */
+    getPromptById(promptId) {
+        return this.savedPrompts.find(p => p.id === promptId) || null;
     }
 
     /**

@@ -146,3 +146,83 @@
 .add-to-prompt-button {
     margin-top: 20px;
 }
+
+/* =====================================
+   EDIT PROMPT MODAL
+   ===================================== */
+#edit-prompt-modal .modal-content {
+    max-width: 600px;
+    width: 90vw;
+}
+
+#edit-prompt-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e1e4e8;
+    margin-bottom: 20px;
+}
+
+#edit-prompt-modal .modal-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.3rem;
+}
+
+#edit-prompt-modal .input-group {
+    margin-bottom: 20px;
+}
+
+#edit-prompt-modal .input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+#edit-prompt-modal .form-input,
+#edit-prompt-modal .form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+#edit-prompt-modal .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+}
+
+#edit-prompt-modal .form-input:focus,
+#edit-prompt-modal .form-textarea:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+}
+
+#edit-prompt-modal .modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #e1e4e8;
+}
+
+@media (max-width: 768px) {
+    #edit-prompt-modal .modal-content {
+        width: 95vw;
+        margin: 20px auto;
+    }
+    
+    #edit-prompt-modal .modal-actions {
+        flex-direction: column;
+    }
+}

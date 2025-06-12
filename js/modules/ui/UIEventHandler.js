@@ -7,9 +7,11 @@ class UIEventHandler {
         this.templateUIManager = managers.templateUIManager;
         this.promptPreviewManager = managers.promptPreviewManager;
         this.dynamicFieldManager = managers.dynamicFieldManager;
+        this.savedPromptsManager = managers.savedPromptsManager;
         this.uiMessageManager = managers.uiMessageManager;
         this.techniqueManager = managers.techniqueManager;
         this.templateManager = managers.templateManager;
+        this.storageManager = managers.storageManager;
         
         // Debouncing for technique card clicks
         this.lastClickTime = 0;
@@ -24,6 +26,7 @@ class UIEventHandler {
         this.setupTechniqueEventListeners();
         this.setupTemplateEventListeners();
         this.setupPromptEventListeners();
+        this.setupPromptManagementEventListeners();
         this.setupFormEventListeners();
         this.setupNavigationEventListeners();
         this.setupCustomEventListeners();
@@ -129,6 +132,93 @@ class UIEventHandler {
             outputFormatSelect.addEventListener('change', () => {
                 this.promptPreviewManager.updatePromptPreview();
             });
+        }
+    }
+
+    /**
+     * Setup prompt management event listeners
+     */
+    setupPromptManagementEventListeners() {
+        // Save current prompt
+        const savePromptBtn = document.getElementById('save-current-prompt');
+        if (savePromptBtn) {
+            savePromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.saveCurrentPrompt();
+            });
+        }
+
+        // Load saved prompt
+        const loadPromptBtn = document.getElementById('load-saved-prompt');
+        if (loadPromptBtn) {
+            loadPromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.loadSelectedPrompt();
+            });
+        }
+
+        // Edit saved prompt
+        const editPromptBtn = document.getElementById('edit-saved-prompt');
+        if (editPromptBtn) {
+            editPromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.editSelectedPrompt();
+            });
+        }
+
+        // Delete saved prompt
+        const deletePromptBtn = document.getElementById('delete-saved-prompt');
+        if (deletePromptBtn) {
+            deletePromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.deleteSelectedPrompt();
+            });
+        }
+
+        // Saved prompts dropdown change
+        const savedPromptsSelect = document.getElementById('saved-prompts-select');
+        if (savedPromptsSelect) {
+            savedPromptsSelect.addEventListener('change', () => {
+                this.savedPromptsManager.onSavedPromptSelectionChange();
+            });
+        }
+
+        // Copy prompt button
+        const copyPromptBtn = document.getElementById('copy-prompt-button');
+        if (copyPromptBtn) {
+            copyPromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.copyPromptToClipboard();
+            });
+        }
+
+        // Edit prompt modal handlers
+        const saveEditedPromptBtn = document.getElementById('save-edited-prompt');
+        if (saveEditedPromptBtn) {
+            saveEditedPromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.saveEditedPrompt();
+            });
+        }
+
+        const cancelEditPromptBtn = document.getElementById('cancel-edit-prompt');
+        if (cancelEditPromptBtn) {
+            cancelEditPromptBtn.addEventListener('click', () => {
+                this.savedPromptsManager.cancelEditPrompt();
+            });
+        }
+
+        // Modal close handlers
+        const editModal = document.getElementById('edit-prompt-modal');
+        if (editModal) {
+            const closeBtn = editModal.querySelector('.modal-close');
+            const backdrop = editModal.querySelector('.modal-backdrop');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    this.savedPromptsManager.cancelEditPrompt();
+                });
+            }
+            
+            if (backdrop) {
+                backdrop.addEventListener('click', () => {
+                    this.savedPromptsManager.cancelEditPrompt();
+                });
+            }
         }
     }
 

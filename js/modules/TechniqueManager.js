@@ -288,6 +288,23 @@ class TechniqueManager {
         // Add to selected techniques
         return this.addTechnique(technique.id);
     }
+
+    /**
+     * Update technique selections in UI (used when loading saved prompts)
+     */
+    updateTechniqueSelections() {
+        // Update visual selection state by triggering UI updates
+        document.querySelectorAll('.technique-card-item').forEach(card => {
+            const techniqueId = card.dataset.id;
+            const isSelected = this.selectedTechniques.includes(techniqueId);
+            
+            if (isSelected) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+    }
 }
 
 // Make TechniqueManager available globally

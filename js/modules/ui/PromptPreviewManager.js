@@ -72,7 +72,7 @@ class PromptPreviewManager {
     copyPromptToClipboard() {
         const promptText = document.getElementById('prompt-preview')?.innerText || '';
         
-        if (!promptText || promptText.includes("Ihr Prompt wird hier erscheinen")) {
+        if (!promptText || promptText.includes("Ihr Prompt wird hier angezeigt")) {
             this.uiMessageManager.showError('Kein Prompt zum Kopieren verfügbar');
             return;
         }

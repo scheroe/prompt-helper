@@ -65,15 +65,23 @@ class UIManager {
             this.uiMessageManager
         );
 
+        // Initialize SavedPromptsManager
+        this.savedPromptsManager = new SavedPromptsManager(
+            managers.storageManager,
+            this.uiMessageManager
+        );
+
         // Initialize event handler last (needs all other managers)
         this.uiEventHandler = new UIEventHandler({
             techniqueUIManager: this.techniqueUIManager,
             templateUIManager: this.templateUIManager,
             promptPreviewManager: this.promptPreviewManager,
             dynamicFieldManager: this.dynamicFieldManager,
+            savedPromptsManager: this.savedPromptsManager,
             uiMessageManager: this.uiMessageManager,
             techniqueManager: this.techniqueManager,
-            templateManager: this.templateManager
+            templateManager: this.templateManager,
+            storageManager: managers.storageManager
         });
     }
 
@@ -91,6 +99,7 @@ class UIManager {
             // Create UI elements after DOM is ready
             this.techniqueUIManager.createTechniqueSelectors();
             this.templateUIManager.createTemplateBlocks();
+            this.savedPromptsManager.init();
             this.uiEventHandler.setupEventListeners();
             // Token info initialization removed
             

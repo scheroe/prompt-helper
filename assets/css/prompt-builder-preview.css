@@ -38,9 +38,151 @@
     align-items: center;
 }
 
+/* =====================================
+   PROMPT ACTIONS
+   ===================================== */
+.prompt-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.prompt-actions-left {
+    flex: 1;
+    min-width: 300px;
+}
+
 .prompt-actions-right {
     display: flex;
     gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+/* =====================================
+   SAVED PROMPTS SECTION
+   ===================================== */
+.saved-prompts-section {
+    margin-bottom: 10px;
+}
+
+.saved-prompts-section label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.saved-prompts-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.saved-prompts-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.saved-prompts-select:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+}
+
+/* =====================================
+   SAVE PROMPT SECTION
+   ===================================== */
+.save-prompt-section {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.prompt-name-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    min-width: 180px;
+    color: #333;
+}
+
+.prompt-name-input:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+}
+
+.prompt-name-input::placeholder {
+    color: #999;
+}
+
+/* =====================================
+   BUTTON STYLING
+   ===================================== */
+.button.small {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.button.small i {
+    margin-right: 6px;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+   ===================================== */
+@media (max-width: 768px) {
+    .prompt-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .prompt-actions-left {
+        min-width: unset;
+    }
+    
+    .prompt-actions-right {
+        justify-content: flex-start;
+    }
+    
+    .saved-prompts-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .saved-prompts-select {
+        min-width: unset;
+    }
+    
+    .save-prompt-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .prompt-name-input {
+        min-width: unset;
+    }
 }
 
 /* =====================================
