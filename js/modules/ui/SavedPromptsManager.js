@@ -428,12 +428,14 @@ class SavedPromptsManager {
         const loadButton = document.getElementById('load-saved-prompt');
         const editButton = document.getElementById('edit-saved-prompt');
         const deleteButton = document.getElementById('delete-saved-prompt');
+        const exportButton = document.getElementById('export-saved-prompt-dropdown-toggle');
 
         const hasSelection = dropdown && dropdown.value !== '';
         
         if (loadButton) loadButton.disabled = !hasSelection;
         if (editButton) editButton.disabled = !hasSelection;
         if (deleteButton) deleteButton.disabled = !hasSelection;
+        if (exportButton) exportButton.disabled = !hasSelection;
     }
 
     /**
@@ -460,6 +462,100 @@ class SavedPromptsManager {
      */
     initialize() {
         this.refreshSavedPromptsDropdown();
+    }
+
+    /**
+     * Export current prompt as text file
+     */
+    exportCurrentPromptAsText() {
+        const currentPromptData = this.getCurrentPromptData();
+        if (!currentPromptData || !currentPromptData.promptText.trim() || currentPromptData.promptText.includes("Ihr Prompt wird hier angezeigt")) {
+            this.uiMessageManager.showMessage('Kein Prompt zum Exportieren verfügbar', 'error');
+            return;
+        }
+
+        const textContent = this.storageManager.exportPromptAsText(currentPromptData);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+        const filename = `prompt-export-${timestamp}.txt`;
+        
+        this.storageManager.downloadAsFile(textContent, filename, 'text/plain');
+        this.uiMessageManager.showMessage('Prompt als Text-Datei exportiert', 'success');
+    }
+
+    /**
+     * Export current prompt as Markdown file
+     */
+    exportCurrentPromptAsMarkdown() {
+        const currentPromptData = this.getCurrentPromptData();
+        if (!currentPromptData || !currentPromptData.promptText.trim() || currentPromptData.promptText.includes("Ihr Prompt wird hier angezeigt")) {
+            this.uiMessageManager.showMessage('Kein Prompt zum Exportieren verfügbar', 'error');
+            return;
+        }
+
+        const markdownContent = this.storageManager.exportPromptAsMarkdown(currentPromptData);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+        const filename = `prompt-export-${timestamp}.md`;
+        
+        this.storageManager.downloadAsFile(markdownContent, filename, 'text/markdown');
+        this.uiMessageManager.showMessage('Prompt als Markdown-Datei exportiert', 'success');
+    }
+
+    /**
+     * Export current prompt as XML file
+     */
+    exportCurrentPromptAsXML() {
+        const currentPromptData = this.getCurrentPromptData();
+        if (!currentPromptData || !currentPromptData.promptText.trim() || currentPromptData.promptText.includes("Ihr Prompt wird hier angezeigt")) {
+            this.uiMessageManager.showMessage('Kein Prompt zum Exportieren verfügbar', 'error');
+            return;
+        }
+
+        const xmlContent = this.storageManager.exportPromptAsXML(currentPromptData);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+        const filename = `prompt-export-${timestamp}.xml`;
+        
+        this.storageManager.downloadAsFile(xmlContent, filename, 'application/xml');
+        this.uiMessageManager.showMessage('Prompt als XML-Datei exportiert', 'success');
+    }
+
+    /**
+     * Export saved prompt by ID in specified format
+     */
+    exportSavedPrompt(promptId, format = 'text') {
+        const prompt = this.storageManager.getPromptById(promptId);
+        if (!prompt) {
+            this.uiMessageManager.showMessage('Gespeicherter Prompt nicht gefunden', 'error');
+            return;
+        }
+
+        // Convert saved prompt to current prompt data format
+        const promptData = {
+            promptText: prompt.prompt || '',
+            basePrompt: prompt.basePrompt || '',
+            taskDescription: prompt.taskDescription || '',
+            outputFormat: prompt.outputFormat || '',
+            selectedTechniques: prompt.techniques || []
+        };
+
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+        const safeName = prompt.name.replace(/[^a-zA-Z0-9-_]/g, '_');
+
+        switch (format) {
+            case 'markdown':
+                const markdownContent = this.storageManager.exportPromptAsMarkdown(promptData);
+                this.storageManager.downloadAsFile(markdownContent, `${safeName}-${timestamp}.md`, 'text/markdown');
+                break;
+            case 'xml':
+                const xmlContent = this.storageManager.exportPromptAsXML(promptData);
+                this.storageManager.downloadAsFile(xmlContent, `${safeName}-${timestamp}.xml`, 'application/xml');
+                break;
+            default:
+                const textContent = this.storageManager.exportPromptAsText(promptData);
+                this.storageManager.downloadAsFile(textContent, `${safeName}-${timestamp}.txt`, 'text/plain');
+                break;
+        }
+
+        this.uiMessageManager.showMessage(`Prompt "${prompt.name}" als ${format.toUpperCase()}-Datei exportiert`, 'success');
     }
 }
 

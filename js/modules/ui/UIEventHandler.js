@@ -220,6 +220,90 @@ class UIEventHandler {
                 });
             }
         }
+
+        // Export dropdown toggle
+        const exportDropdownToggle = document.getElementById('export-prompt-dropdown-toggle');
+        if (exportDropdownToggle) {
+            exportDropdownToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleExportDropdown();
+            });
+        }
+
+        // Export options
+        const exportTextBtn = document.getElementById('export-prompt-text');
+        if (exportTextBtn) {
+            exportTextBtn.addEventListener('click', () => {
+                this.savedPromptsManager.exportCurrentPromptAsText();
+                this.hideExportDropdown();
+            });
+        }
+
+        const exportMarkdownBtn = document.getElementById('export-prompt-markdown');
+        if (exportMarkdownBtn) {
+            exportMarkdownBtn.addEventListener('click', () => {
+                this.savedPromptsManager.exportCurrentPromptAsMarkdown();
+                this.hideExportDropdown();
+            });
+        }
+
+        const exportXMLBtn = document.getElementById('export-prompt-xml');
+        if (exportXMLBtn) {
+            exportXMLBtn.addEventListener('click', () => {
+                this.savedPromptsManager.exportCurrentPromptAsXML();
+                this.hideExportDropdown();
+            });
+        }
+
+        // Export saved prompt dropdown toggle
+        const exportSavedDropdownToggle = document.getElementById('export-saved-prompt-dropdown-toggle');
+        if (exportSavedDropdownToggle) {
+            exportSavedDropdownToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleExportSavedDropdown();
+            });
+        }
+
+        // Export saved prompt options
+        const exportSavedTextBtn = document.getElementById('export-saved-prompt-text');
+        if (exportSavedTextBtn) {
+            exportSavedTextBtn.addEventListener('click', () => {
+                this.exportSelectedSavedPrompt('text');
+                this.hideExportSavedDropdown();
+            });
+        }
+
+        const exportSavedMarkdownBtn = document.getElementById('export-saved-prompt-markdown');
+        if (exportSavedMarkdownBtn) {
+            exportSavedMarkdownBtn.addEventListener('click', () => {
+                this.exportSelectedSavedPrompt('markdown');
+                this.hideExportSavedDropdown();
+            });
+        }
+
+        const exportSavedXMLBtn = document.getElementById('export-saved-prompt-xml');
+        if (exportSavedXMLBtn) {
+            exportSavedXMLBtn.addEventListener('click', () => {
+                this.exportSelectedSavedPrompt('xml');
+                this.hideExportSavedDropdown();
+            });
+        }
+
+        // Close export saved dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const exportSavedSection = document.querySelector('.export-saved-prompt-section');
+            if (exportSavedSection && !exportSavedSection.contains(e.target)) {
+                this.hideExportSavedDropdown();
+            }
+        });
+
+        // Close export dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const exportSection = document.querySelector('.export-prompt-section');
+            if (exportSection && !exportSection.contains(e.target)) {
+                this.hideExportDropdown();
+            }
+        });
     }
 
     /**
@@ -351,6 +435,127 @@ class UIEventHandler {
     showInfoModal() {
         console.log('Showing info modal');
         // TODO: Implement info modal
+    }
+
+    /**
+     * Toggle export dropdown visibility
+     */
+    toggleExportDropdown() {
+        const dropdown = document.getElementById('export-prompt-dropdown');
+        const toggle = document.getElementById('export-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        const isVisible = dropdown.style.display !== 'none';
+        
+        if (isVisible) {
+            this.hideExportDropdown();
+        } else {
+            this.showExportDropdown();
+        }
+    }
+
+    /**
+     * Show export dropdown
+     */
+    showExportDropdown() {
+        const dropdown = document.getElementById('export-prompt-dropdown');
+        const toggle = document.getElementById('export-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        dropdown.style.display = 'block';
+        toggle.classList.add('open');
+        
+        // Add animation class after display is set
+        setTimeout(() => {
+            dropdown.classList.add('show');
+        }, 10);
+    }
+
+    /**
+     * Hide export dropdown
+     */
+    hideExportDropdown() {
+        const dropdown = document.getElementById('export-prompt-dropdown');
+        const toggle = document.getElementById('export-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        dropdown.classList.remove('show');
+        toggle.classList.remove('open');
+        
+        // Hide after animation completes
+        setTimeout(() => {
+            dropdown.style.display = 'none';
+        }, 200);
+    }
+
+    /**
+     * Toggle export saved prompt dropdown visibility
+     */
+    toggleExportSavedDropdown() {
+        const dropdown = document.getElementById('export-saved-prompt-dropdown');
+        const toggle = document.getElementById('export-saved-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        const isVisible = dropdown.style.display !== 'none';
+        
+        if (isVisible) {
+            this.hideExportSavedDropdown();
+        } else {
+            this.showExportSavedDropdown();
+        }
+    }
+
+    /**
+     * Show export saved prompt dropdown
+     */
+    showExportSavedDropdown() {
+        const dropdown = document.getElementById('export-saved-prompt-dropdown');
+        const toggle = document.getElementById('export-saved-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        dropdown.style.display = 'block';
+        toggle.classList.add('open');
+        
+        // Add animation class after display is set
+        setTimeout(() => {
+            dropdown.classList.add('show');
+        }, 10);
+    }
+
+    /**
+     * Hide export saved prompt dropdown
+     */
+    hideExportSavedDropdown() {
+        const dropdown = document.getElementById('export-saved-prompt-dropdown');
+        const toggle = document.getElementById('export-saved-prompt-dropdown-toggle');
+        
+        if (!dropdown || !toggle) return;
+
+        dropdown.classList.remove('show');
+        toggle.classList.remove('open');
+        
+        // Hide after animation completes
+        setTimeout(() => {
+            dropdown.style.display = 'none';
+        }, 200);
+    }
+
+    /**
+     * Export the currently selected saved prompt
+     */
+    exportSelectedSavedPrompt(format) {
+        const dropdown = document.getElementById('saved-prompts-select');
+        if (!dropdown || !dropdown.value) {
+            this.uiMessageManager.showMessage('Bitte wählen Sie einen gespeicherten Prompt aus', 'error');
+            return;
+        }
+
+        this.savedPromptsManager.exportSavedPrompt(dropdown.value, format);
     }
 
     /**

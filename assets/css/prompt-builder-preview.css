@@ -150,6 +150,141 @@
 }
 
 /* =====================================
+   EXPORT DROPDOWN STYLING
+   ===================================== */
+.export-prompt-section {
+    position: relative;
+    display: inline-block;
+}
+
+.export-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 180px;
+    padding: 8px 0;
+    margin-top: 4px;
+}
+
+.export-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    color: var(--color-text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: left;
+}
+
+.export-option:hover {
+    background-color: var(--color-background-light);
+}
+
+.export-option:active {
+    background-color: var(--color-primary-light);
+}
+
+.export-option i {
+    width: 16px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+#export-prompt-dropdown-toggle .fa-chevron-down {
+    font-size: 12px;
+    margin-left: 4px;
+    transition: transform 0.2s;
+}
+
+#export-prompt-dropdown-toggle.open .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Responsive adjustments for export dropdown */
+@media (max-width: 768px) {
+    .export-dropdown {
+        right: auto;
+        left: 0;
+        min-width: 160px;
+    }
+}
+
+/* Animation for dropdown */
+.export-dropdown {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.export-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Export section layout adjustments */
+.prompt-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.save-prompt-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.export-prompt-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Export Saved Prompt Section */
+.export-saved-prompt-section {
+    position: relative;
+    display: inline-block;
+}
+
+.saved-prompts-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Ensure both export dropdowns have consistent styling */
+.export-prompt-section,
+.export-saved-prompt-section {
+    position: relative;
+    display: inline-block;
+}
+
+/* Make the saved prompts section responsive */
+@media (max-width: 768px) {
+    .saved-prompts-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .saved-prompts-controls button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =====================================
    RESPONSIVE DESIGN
    ===================================== */
 @media (max-width: 768px) {

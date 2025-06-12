@@ -285,6 +285,149 @@ class StorageManager {
 
         return null;
     }
+
+    /**
+     * Export prompt as plain text
+     */
+    exportPromptAsText(promptData) {
+        if (!promptData) return '';
+
+        let textContent = '';
+        
+        // Add role assignment if present
+        if (promptData.basePrompt && promptData.basePrompt.trim()) {
+            textContent += `ROLLE:\n${promptData.basePrompt}\n\n`;
+        }
+        
+        // Add task description
+        if (promptData.taskDescription && promptData.taskDescription.trim()) {
+            textContent += `AUFGABE:\n${promptData.taskDescription}\n\n`;
+        }
+        
+        // Add output format
+        if (promptData.outputFormat && promptData.outputFormat.trim()) {
+            textContent += `AUSGABEFORMAT:\n${promptData.outputFormat}\n\n`;
+        }
+        
+        // Add final prompt
+        textContent += `GENERIERTER PROMPT:\n${promptData.promptText}\n\n`;
+        
+        // Add metadata
+        textContent += `---\nERSTELLT AM: ${new Date().toLocaleString('de-DE')}\n`;
+        if (promptData.selectedTechniques && promptData.selectedTechniques.length > 0) {
+            textContent += `VERWENDETE TECHNIKEN: ${promptData.selectedTechniques.join(', ')}\n`;
+        }
+        
+        return textContent;
+    }
+
+    /**
+     * Export prompt as Markdown
+     */
+    exportPromptAsMarkdown(promptData) {
+        if (!promptData) return '';
+
+        let markdownContent = `# Prompt Export\n\n`;
+        
+        // Add role assignment if present
+        if (promptData.basePrompt && promptData.basePrompt.trim()) {
+            markdownContent += `## Rolle\n\n${promptData.basePrompt}\n\n`;
+        }
+        
+        // Add task description
+        if (promptData.taskDescription && promptData.taskDescription.trim()) {
+            markdownContent += `## Aufgabe\n\n${promptData.taskDescription}\n\n`;
+        }
+        
+        // Add output format
+        if (promptData.outputFormat && promptData.outputFormat.trim()) {
+            markdownContent += `## Ausgabeformat\n\n${promptData.outputFormat}\n\n`;
+        }
+        
+        // Add final prompt
+        markdownContent += `## Generierter Prompt\n\n\`\`\`\n${promptData.promptText}\n\`\`\`\n\n`;
+        
+        // Add metadata
+        markdownContent += `## Metadaten\n\n`;
+        markdownContent += `- **Erstellt am:** ${new Date().toLocaleString('de-DE')}\n`;
+        if (promptData.selectedTechniques && promptData.selectedTechniques.length > 0) {
+            markdownContent += `- **Verwendete Techniken:** ${promptData.selectedTechniques.join(', ')}\n`;
+        }
+        
+        return markdownContent;
+    }
+
+    /**
+     * Export prompt as XML
+     */
+    exportPromptAsXML(promptData) {
+        if (!promptData) return '';
+
+        let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        xmlContent += `<prompt>\n`;
+        xmlContent += `  <metadaten>\n`;
+        xmlContent += `    <erstellt_am>${new Date().toISOString()}</erstellt_am>\n`;
+        if (promptData.selectedTechniques && promptData.selectedTechniques.length > 0) {
+            xmlContent += `    <verwendete_techniken>\n`;
+            promptData.selectedTechniques.forEach(technique => {
+                xmlContent += `      <technik>${this.escapeXML(technique)}</technik>\n`;
+            });
+            xmlContent += `    </verwendete_techniken>\n`;
+        }
+        xmlContent += `  </metadaten>\n`;
+        
+        // Add role assignment if present
+        if (promptData.basePrompt && promptData.basePrompt.trim()) {
+            xmlContent += `  <rolle><![CDATA[${promptData.basePrompt}]]></rolle>\n`;
+        }
+        
+        // Add task description
+        if (promptData.taskDescription && promptData.taskDescription.trim()) {
+            xmlContent += `  <aufgabe><![CDATA[${promptData.taskDescription}]]></aufgabe>\n`;
+        }
+        
+        // Add output format
+        if (promptData.outputFormat && promptData.outputFormat.trim()) {
+            xmlContent += `  <ausgabeformat><![CDATA[${promptData.outputFormat}]]></ausgabeformat>\n`;
+        }
+        
+        // Add final prompt
+        xmlContent += `  <generierter_prompt><![CDATA[${promptData.promptText}]]></generierter_prompt>\n`;
+        xmlContent += `</prompt>`;
+        
+        return xmlContent;
+    }
+
+    /**
+     * Escape XML special characters
+     */
+    escapeXML(text) {
+        return text.replace(/[<>&'"]/g, function (char) {
+            switch (char) {
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '&': return '&amp;';
+                case '"': return '&quot;';
+                case "'": return '&#39;';
+                default: return char;
+            }
+        });
+    }
+
+    /**
+     * Download content as file
+     */
+    downloadAsFile(content, filename, mimeType = 'text/plain') {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
 }
 
 // Make StorageManager available globally
