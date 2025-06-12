@@ -192,7 +192,7 @@ if (!document.getElementById('ui-messages-styles')) {
             gap: 12px;
             pointer-events: auto;
             animation: slideIn 0.3s ease-out;
-            border-left: 4px solid #007bff;
+            border-left: 4px solid #4a6cf7;
         }
 
         .message.message-removing {
@@ -200,27 +200,27 @@ if (!document.getElementById('ui-messages-styles')) {
         }
 
         .message-success {
-            border-left-color: #28a745;
+            border-left-color: #4a6cf7;
         }
 
         .message-error {
-            border-left-color: #dc3545;
+            border-left-color: #ef4444;
         }
 
         .message-warning {
-            border-left-color: #ffc107;
+            border-left-color: #f59e0b;
         }
 
         .message-info {
-            border-left-color: #17a2b8;
+            border-left-color: #64748b;
         }
 
         .message-loading {
-            border-left-color: #6c757d;
+            border-left-color: #6b7280;
         }
 
         .message-confirm {
-            border-left-color: #007bff;
+            border-left-color: #4a6cf7;
             flex-direction: column;
             align-items: flex-start;
         }
@@ -231,27 +231,27 @@ if (!document.getElementById('ui-messages-styles')) {
         }
 
         .message-success i {
-            color: #28a745;
+            color: #4a6cf7;
         }
 
         .message-error i {
-            color: #dc3545;
+            color: #ef4444;
         }
 
         .message-warning i {
-            color: #ffc107;
+            color: #f59e0b;
         }
 
         .message-info i {
-            color: #17a2b8;
+            color: #64748b;
         }
 
         .message-loading i {
-            color: #6c757d;
+            color: #6b7280;
         }
 
         .message-confirm i {
-            color: #007bff;
+            color: #4a6cf7;
         }
 
         .message span {
@@ -290,21 +290,21 @@ if (!document.getElementById('ui-messages-styles')) {
         }
 
         .btn-confirm {
-            background: #007bff;
+            background: #4a6cf7;
             color: white;
         }
 
         .btn-confirm:hover {
-            background: #0056b3;
+            background: #3b5ae0;
         }
 
         .btn-cancel {
-            background: #6c757d;
+            background: #6b7280;
             color: white;
         }
 
         .btn-cancel:hover {
-            background: #545b62;
+            background: #4b5563;
         }
 
         @keyframes slideIn {

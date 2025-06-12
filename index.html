@@ -86,9 +86,6 @@
                             <div class="form-actions">
                                 <button id="generate-preview-button" class="button primary large">Vorschau anzeigen
                                 </button>
-                                <button id="create-demo-prompt" class="button secondary small" title="Demo-Prompt für Export-Tests erstellen">
-                                    <i class="fas fa-magic"></i> Demo erstellen
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -107,78 +104,92 @@
                             <div id="prompt-preview">Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
                             </div>
                             
-                            <!-- Prompt Actions - Unified Interface -->
+                            <!-- Prompt Actions - Optimized Unified Interface -->
                             <div class="prompt-actions">
-                                <div class="prompt-management-section">
-                                    <!-- Unified Prompt Input/Selector -->
-                                    <div class="prompt-selector-container">
-                                        <div class="prompt-input-wrapper">
-                                            <input type="text" 
-                                                   id="unified-prompt-input" 
-                                                   placeholder="Prompt-Name eingeben oder wählen..." 
-                                                   class="unified-prompt-input"
-                                                   autocomplete="off">
-                                            <button id="prompt-dropdown-toggle" class="dropdown-toggle-btn" type="button" title="Gespeicherte Prompts anzeigen">
-                                                <i class="fas fa-chevron-down"></i>
-                                            </button>
+                                <div class="prompt-management-container">
+                                    <!-- Unified Prompt Input with integrated controls -->                                        <div class="prompt-input-section">
+                                            <div class="prompt-selector-container">
+                                                <div class="prompt-input-wrapper">
+                                                    <input type="text" 
+                                                           id="unified-prompt-input" 
+                                                           placeholder="Prompt-Name eingeben oder aus Liste wählen..." 
+                                                           class="unified-prompt-input"
+                                                           autocomplete="off">
+                                                    <button id="edit-prompt-btn" 
+                                                            class="input-edit-btn" 
+                                                            type="button" 
+                                                            title="Ausgewählten Prompt bearbeiten"
+                                                            style="display: none;">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button id="prompt-dropdown-toggle" 
+                                                            class="dropdown-toggle-btn" 
+                                                            type="button" 
+                                                            title="Gespeicherte Prompts anzeigen/ausblenden">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                </div>
+                                            
+                                            <!-- Dropdown for saved prompts -->
+                                            <div id="saved-prompts-dropdown" class="saved-prompts-dropdown" style="display: none;">
+                                                <div class="dropdown-header">
+                                                    <span>Gespeicherte Prompts</span>
+                                                    <small id="prompts-count">0 Prompts</small>
+                                                </div>
+                                                <div id="saved-prompts-list" class="saved-prompts-list">
+                                                    <!-- Dynamically populated -->
+                                                </div>
+                                            </div>
                                         </div>
                                         
-                                        <!-- Dropdown for saved prompts -->
-                                        <div id="saved-prompts-dropdown" class="saved-prompts-dropdown" style="display: none;">
-                                            <div class="dropdown-header">
-                                                <span>Gespeicherte Prompts</span>
-                                            </div>
-                                            <div id="saved-prompts-list" class="saved-prompts-list">
-                                                <!-- Dynamically populated -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Action Buttons -->
-                                    <div class="prompt-actions-buttons">
-                                        <!-- Save/Update Button -->
-                                        <button id="save-prompt-btn" class="action-btn" title="Aktuellen Prompt speichern">
-                                            <i class="fas fa-save"></i>
-                                        </button>
-                                        
-                                        <!-- Load Button (only visible when prompt selected) -->
-                                        <button id="load-prompt-btn" class="action-btn" title="Ausgewählten Prompt laden" style="display: none;">
-                                            <i class="fas fa-upload"></i>
-                                        </button>
-                                        
-                                        <!-- Edit Button (only visible when prompt selected) -->
-                                        <button id="edit-prompt-btn" class="action-btn" title="Ausgewählten Prompt bearbeiten" style="display: none;">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        
-                                        <!-- Delete Button (only visible when prompt selected) -->
-                                        <button id="delete-prompt-btn" class="action-btn danger" title="Ausgewählten Prompt löschen" style="display: none;">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        
-                                        <!-- Copy Button -->
-                                        <button id="copy-prompt-btn" class="action-btn" title="Prompt in Zwischenablage kopieren">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                        
-                                        <!-- Export Dropdown -->
-                                        <div class="export-dropdown-container">
-                                            <button id="export-dropdown-btn" class="action-btn" title="Prompt exportieren">
-                                                <i class="fas fa-download"></i>
+                                        <!-- Context-aware Action Buttons -->
+                                        <div class="prompt-actions-toolbar">
+                                            <!-- Primary Action (Save/Update) -->
+                                            <button id="save-prompt-btn" 
+                                                    class="action-btn primary" 
+                                                    title="Neuen Prompt speichern"
+                                                    data-action-type="save">
+                                                <i class="fas fa-save"></i>
                                             </button>
-                                            <div id="export-options-dropdown" class="export-options-dropdown" style="display: none;">
-                                                <button class="export-option" data-format="text" title="Als Text-Datei exportieren">
-                                                    <i class="fas fa-file-alt"></i>
-                                                    <span>.txt</span>
+                                            
+                                            <!-- Delete Selected Prompt -->
+                                            <button id="delete-prompt-btn" 
+                                                    class="action-btn danger" 
+                                                    title="Ausgewählten Prompt löschen"
+                                                    data-action-type="delete"
+                                                    style="display: none;">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            
+                                            <!-- Copy to Clipboard -->
+                                            <button id="copy-prompt-btn" 
+                                                    class="action-btn utility" 
+                                                    title="Prompt in Zwischenablage kopieren"
+                                                    data-action-type="copy">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            
+                                            <!-- Export Options -->
+                                            <div class="export-dropdown-container">
+                                                <button id="export-dropdown-btn" 
+                                                        class="action-btn utility" 
+                                                        title="Prompt als Datei exportieren"
+                                                        data-action-type="export">
+                                                    <i class="fas fa-download"></i>
                                                 </button>
-                                                <button class="export-option" data-format="markdown" title="Als Markdown-Datei exportieren">
-                                                    <i class="fab fa-markdown"></i>
-                                                    <span>.md</span>
-                                                </button>
-                                                <button class="export-option" data-format="xml" title="Als XML-Datei exportieren">
-                                                    <i class="fas fa-code"></i>
-                                                    <span>.xml</span>
-                                                </button>
+                                                <div id="export-options-dropdown" class="export-options-dropdown" style="display: none;">
+                                                    <button class="export-option" data-format="text" title="Als Text-Datei (.txt) exportieren">
+                                                        <i class="fas fa-file-alt"></i>
+                                                        <span>Text (.txt)</span>
+                                                    </button>
+                                                    <button class="export-option" data-format="markdown" title="Als Markdown-Datei (.md) exportieren">
+                                                        <i class="fab fa-markdown"></i>
+                                                        <span>Markdown (.md)</span>
+                                                    </button>
+                                                    <button class="export-option" data-format="xml" title="Als XML-Datei (.xml) exportieren">
+                                                        <i class="fas fa-code"></i>
+                                                        <span>XML (.xml)</span>
+                                                    </button>
                                             </div>
                                         </div>
                                     </div>

@@ -6,6 +6,14 @@ class PromptPreviewManager {
         this.promptGenerator = promptGenerator;
         this.uiMessageManager = uiMessageManager;
         this.tokenInfoInitialized = false;
+        this.savedPromptsManager = null; // Will be set via setManagers
+    }
+
+    /**
+     * Set managers for cross-reference
+     */
+    setManagers(managers) {
+        this.savedPromptsManager = managers.savedPromptsManager;
     }
 
     /**
@@ -25,6 +33,11 @@ class PromptPreviewManager {
         const copyButton = document.getElementById('copy-prompt-button');
         if (copyButton) {
             copyButton.disabled = !finalPrompt.trim() || finalPrompt.includes("Ihr Prompt wird hier erscheinen");
+        }
+
+        // Notify SavedPromptsManager that prompt content has changed
+        if (this.savedPromptsManager && this.savedPromptsManager.onPromptContentChanged) {
+            this.savedPromptsManager.onPromptContentChanged();
         }
 
         return finalPrompt;

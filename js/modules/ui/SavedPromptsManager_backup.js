@@ -838,51 +838,6 @@ class SavedPromptsManager {
         this.uiMessageManager.showMessage(`Prompt "${prompt.name}" als ${format.toUpperCase()}-Datei exportiert`, 'success');
     }
 
-    /**
-     * Create a demo prompt for testing export functionality
-     */
-    createDemoPrompt() {
-        // Fill form fields with demo data
-        const basePromptField = document.getElementById('base-prompt');
-        const taskField = document.getElementById('task-description');
-        const outputField = document.getElementById('output-format');
-
-        if (basePromptField) {
-            basePromptField.value = 'Du bist ein erfahrener AI-Prompt-Engineer mit umfassendem Wissen über Best Practices im Prompt Engineering.';
-        }
-
-        if (taskField) {
-            taskField.value = 'Erstelle einen strukturierten Leitfaden für die Optimierung von AI-Prompts. Der Leitfaden soll sowohl für Anfänger als auch für Fortgeschrittene geeignet sein.';
-        }
-
-        if (outputField) {
-            outputField.value = 'Erstelle eine strukturierte Anleitung mit: 1) Einführung, 2) Grundprinzipien, 3) Praktische Beispiele, 4) Häufige Fehler, 5) Fortgeschrittene Techniken. Verwende Markdown-Formatierung mit Überschriften, Listen und Code-Blöcken.';
-        }
-
-        // Trigger form updates
-        if (taskField) {
-            taskField.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-
-        // Select some demo techniques
-        setTimeout(() => {
-            const demoTechniques = ['chain-of-thought', 'few-shot-learning', 'role-prompting'];
-            demoTechniques.forEach(techniqueId => {
-                const techniqueCard = document.querySelector(`[data-id="${techniqueId}"]`);
-                if (techniqueCard && this.promptBuilder && this.promptBuilder.techniqueManager) {
-                    techniqueCard.classList.add('selected');
-                    this.promptBuilder.techniqueManager.addTechnique(techniqueId);
-                }
-            });
-
-            // Update UI to show the preview
-            if (this.promptBuilder && this.promptBuilder.uiManager && this.promptBuilder.uiManager.promptPreviewManager) {
-                this.promptBuilder.uiManager.promptPreviewManager.updatePromptPreview();
-            }
-
-            this.uiMessageManager.showMessage('Demo-Prompt erstellt! Sie können nun die Export-Funktionen testen.', 'success');
-        }, 500);
-    }
 }
 
 // Make SavedPromptsManager available globally

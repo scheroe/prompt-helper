@@ -4,15 +4,42 @@
 
 /* Base Styles and CSS Reset */
 :root {
-    --primary: #5468ff;
-    --primary-dark: #4353cc;
-    --secondary: #6c757d;
-    --light: #f8f9fa;
+    /* Einheitliche Blau-Grau Farbpalette */
+    --color-primary: #4a6cf7;           /* Hauptblau */
+    --color-primary-dark: #3b5ae0;     /* Dunkles Blau */
+    --color-primary-light: #6b8afc;    /* Helles Blau */
+    --color-primary-subtle: #e8f1ff;   /* Sehr helles Blau */
+    
+    --color-secondary: #64748b;        /* Mittelgrau-Blau */
+    --color-secondary-dark: #475569;   /* Dunkles Grau-Blau */
+    --color-secondary-light: #94a3b8;  /* Helles Grau-Blau */
+    --color-secondary-subtle: #f1f5f9; /* Sehr helles Grau-Blau */
+    
+    --color-neutral: #6b7280;          /* Neutralgrau */
+    --color-neutral-dark: #4b5563;     /* Dunkles Neutralgrau */
+    --color-neutral-light: #9ca3af;    /* Helles Neutralgrau */
+    --color-neutral-subtle: #f9fafb;   /* Sehr helles Neutralgrau */
+    
+    --color-warning: #f59e0b;          /* Warnung (Gelb-Orange) */
+    --color-warning-dark: #d97706;     /* Dunkle Warnung */
+    --color-warning-light: #fbbf24;    /* Helle Warnung */
+    --color-warning-subtle: #fef3c7;   /* Sehr helle Warnung */
+    
+    --color-danger: #ef4444;           /* Gefahr (gedämpftes Rot) */
+    --color-danger-dark: #dc2626;      /* Dunkle Gefahr */
+    --color-danger-light: #f87171;     /* Helle Gefahr */
+    --color-danger-subtle: #fee2e2;    /* Sehr helle Gefahr */
+    
+    /* Legacy compatibility (mapped to new colors) */
+    --primary: var(--color-primary);
+    --primary-dark: var(--color-primary-dark);
+    --secondary: var(--color-secondary);
+    --light: var(--color-neutral-subtle);
     --dark: #212529;
-    --success: #28a745;
-    --info: #17a2b8;
-    --warning: #ffc107;
-    --danger: #dc3545;
+    --success: var(--color-primary);    /* Success mapped to primary blue */
+    --info: var(--color-secondary);     /* Info mapped to secondary blue-gray */
+    --warning: var(--color-warning);
+    --danger: var(--color-danger);
     --gray-100: #f8f9fa;
     --gray-200: #e9ecef;
     --gray-300: #dee2e6;

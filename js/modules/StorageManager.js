@@ -151,6 +151,13 @@ class StorageManager {
     }
 
     /**
+     * Get saved prompts (alias for compatibility)
+     */
+    getSavedPrompts() {
+        return this.savedPrompts;
+    }
+
+    /**
      * Delete a saved prompt
      */
     deletePrompt(index) {

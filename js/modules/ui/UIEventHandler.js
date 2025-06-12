@@ -137,92 +137,14 @@ class UIEventHandler {
     }
 
     /**
-     * Setup prompt management event listeners
+     * Setup prompt management event listeners (Legacy - now handled by SavedPromptsManager)
+     * Kept for backward compatibility and non-unified UI components
      */
     setupPromptManagementEventListeners() {
-        // Save current prompt
-        const savePromptBtn = document.getElementById('save-current-prompt');
-        if (savePromptBtn) {
-            savePromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.saveCurrentPrompt();
-            });
-        }
-
-        // Load saved prompt
-        const loadPromptBtn = document.getElementById('load-saved-prompt');
-        if (loadPromptBtn) {
-            loadPromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.loadSelectedPrompt();
-            });
-        }
-
-        // Edit saved prompt
-        const editPromptBtn = document.getElementById('edit-saved-prompt');
-        if (editPromptBtn) {
-            editPromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.editSelectedPrompt();
-            });
-        }
-
-        // Delete saved prompt
-        const deletePromptBtn = document.getElementById('delete-saved-prompt');
-        if (deletePromptBtn) {
-            deletePromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.deleteSelectedPrompt();
-            });
-        }
-
-        // Saved prompts dropdown change
-        const savedPromptsSelect = document.getElementById('saved-prompts-select');
-        if (savedPromptsSelect) {
-            savedPromptsSelect.addEventListener('change', () => {
-                this.savedPromptsManager.onSavedPromptSelectionChange();
-            });
-        }
-
-        // Copy prompt button
-        const copyPromptBtn = document.getElementById('copy-prompt-button');
-        if (copyPromptBtn) {
-            copyPromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.copyPromptToClipboard();
-            });
-        }
-
-        // Edit prompt modal handlers
-        const saveEditedPromptBtn = document.getElementById('save-edited-prompt');
-        if (saveEditedPromptBtn) {
-            saveEditedPromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.saveEditedPrompt();
-            });
-        }
-
-        const cancelEditPromptBtn = document.getElementById('cancel-edit-prompt');
-        if (cancelEditPromptBtn) {
-            cancelEditPromptBtn.addEventListener('click', () => {
-                this.savedPromptsManager.cancelEditPrompt();
-            });
-        }
-
-        // Modal close handlers
-        const editModal = document.getElementById('edit-prompt-modal');
-        if (editModal) {
-            const closeBtn = editModal.querySelector('.modal-close');
-            const backdrop = editModal.querySelector('.modal-backdrop');
-            
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    this.savedPromptsManager.cancelEditPrompt();
-                });
-            }
-            
-            if (backdrop) {
-                backdrop.addEventListener('click', () => {
-                    this.savedPromptsManager.cancelEditPrompt();
-                });
-            }
-        }
-
-        // Export dropdown toggle
+        // Note: Modern prompt management event listeners are now handled by SavedPromptsManager
+        // This method is kept only for legacy compatibility if needed
+        
+        // Only setup export dropdown which is not handled by SavedPromptsManager
         const exportDropdownToggle = document.getElementById('export-prompt-dropdown-toggle');
         if (exportDropdownToggle) {
             exportDropdownToggle.addEventListener('click', (e) => {
@@ -305,14 +227,6 @@ class UIEventHandler {
                 this.hideExportDropdown();
             }
         });
-
-        // Demo prompt creation
-        const createDemoBtn = document.getElementById('create-demo-prompt');
-        if (createDemoBtn) {
-            createDemoBtn.addEventListener('click', () => {
-                this.savedPromptsManager.createDemoPrompt();
-            });
-        }
     }
 
     /**
@@ -320,61 +234,8 @@ class UIEventHandler {
      */
     setupUnifiedUIEventListeners() {
         // Note: The SavedPromptsManager now handles its own unified UI event listeners
-        // This method is kept for any additional unified UI components
-        
-        // Demo prompt creation button
-        const demoBtn = document.getElementById('create-demo-prompt');
-        if (demoBtn) {
-            demoBtn.addEventListener('click', () => {
-                this.createDemoPrompt();
-            });
-        }
-    }
-
-    /**
-     * Create a demo prompt for testing
-     */
-    createDemoPrompt() {
-        // Fill form fields with demo data
-        const basePromptField = document.getElementById('base-prompt');
-        const taskField = document.getElementById('task-description');
-        const outputField = document.getElementById('output-format');
-
-        if (basePromptField) {
-            basePromptField.value = 'Du bist ein erfahrener KI-Experte mit fundiertem Wissen in Prompt Engineering und Machine Learning.';
-        }
-        
-        if (taskField) {
-            taskField.value = 'Analysiere den folgenden Text und erstelle eine strukturierte Zusammenfassung mit den wichtigsten Erkenntnissen.';
-        }
-        
-        if (outputField) {
-            outputField.value = 'Strukturiere deine Antwort in folgenden Abschnitten: 1) Hauptthemen, 2) Wichtige Details, 3) Schlussfolgerungen. Verwende Bullet Points für bessere Lesbarkeit.';
-        }
-
-        // Select some demo techniques
-        if (this.promptBuilder && this.promptBuilder.techniqueManager) {
-            // Clear existing selections
-            this.promptBuilder.selectedTechniques = [];
-            
-            // Add some demo techniques
-            const demoTechniques = ['Chain-of-Thought', 'Structured Thinking'];
-            demoTechniques.forEach(technique => {
-                if (!this.promptBuilder.selectedTechniques.includes(technique)) {
-                    this.promptBuilder.selectedTechniques.push(technique);
-                }
-            });
-            
-            // Update UI
-            this.promptBuilder.techniqueManager.updateTechniqueSelections();
-        }
-
-        // Trigger preview update
-        if (this.promptPreviewManager) {
-            this.promptPreviewManager.updatePromptPreview();
-        }
-
-        this.uiMessageManager.showMessage('Demo-Prompt wurde erstellt! Sie können ihn jetzt testen und speichern.');
+        // This method is kept for any additional unified UI components that are not
+        // handled by the SavedPromptsManager
     }
 
     /**

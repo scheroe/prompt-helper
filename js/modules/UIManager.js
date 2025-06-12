@@ -71,6 +71,11 @@ class UIManager {
             this.uiMessageManager
         );
 
+        // Set cross-references for prompt preview manager
+        this.promptPreviewManager.setManagers({
+            savedPromptsManager: this.savedPromptsManager
+        });
+
         // Initialize event handler last (needs all other managers)
         this.uiEventHandler = new UIEventHandler({
             techniqueUIManager: this.techniqueUIManager,
@@ -90,6 +95,12 @@ class UIManager {
      */
     async init() {
         try {
+            // Prevent multiple initializations
+            if (this.initialized) {
+                console.log('UIManager: Bereits initialisiert, überspringe...');
+                return;
+            }
+            
             console.log('UIManager: Initialisierung gestartet...');
             
             if (!this.techniqueUIManager) {

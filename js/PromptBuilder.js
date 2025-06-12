@@ -12,6 +12,7 @@ class PromptBuilder {
         this.skillLevel = "intermediate";
         this.currentTemplateFields = {};
         this.rawPromptText = "";
+        this.initialized = false; // Flag to prevent multiple initializations
         
         // Initialize all managers
         this.initializeManagers();
@@ -61,6 +62,12 @@ class PromptBuilder {
         try {
             console.log('Initializing PromptBuilder application...');
 
+            // Prevent re-initialization
+            if (this.initialized) {
+                console.warn('PromptBuilder is already initialized');
+                return;
+            }
+
             // Set up cross-manager references BEFORE initialization
             this.setupManagerReferences();
 
@@ -78,6 +85,7 @@ class PromptBuilder {
 
             // No longer start wizard - direct form is always visible
             console.log('PromptBuilder application initialized successfully');
+            this.initialized = true;
         } catch (error) {
             console.error('Error initializing PromptBuilder:', error);
             this.handleInitializationError(error);

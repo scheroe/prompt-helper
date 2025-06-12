@@ -423,19 +423,19 @@
 }
 
 .notification-success {
-    border-left-color: #28a745;
+    border-left-color: #4a6cf7;
 }
 
 .notification-error {
-    border-left-color: #dc3545;
+    border-left-color: #ef4444;
 }
 
 .notification-warning {
-    border-left-color: #ffc107;
+    border-left-color: #f59e0b;
 }
 
 .notification-info {
-    border-left-color: #17a2b8;
+    border-left-color: #64748b;
 }
 
 .notification-message {
