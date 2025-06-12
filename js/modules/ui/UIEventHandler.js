@@ -27,6 +27,7 @@ class UIEventHandler {
         this.setupTemplateEventListeners();
         this.setupPromptEventListeners();
         this.setupPromptManagementEventListeners();
+        this.setupUnifiedUIEventListeners(); // New unified UI
         this.setupFormEventListeners();
         this.setupNavigationEventListeners();
         this.setupCustomEventListeners();
@@ -304,6 +305,76 @@ class UIEventHandler {
                 this.hideExportDropdown();
             }
         });
+
+        // Demo prompt creation
+        const createDemoBtn = document.getElementById('create-demo-prompt');
+        if (createDemoBtn) {
+            createDemoBtn.addEventListener('click', () => {
+                this.savedPromptsManager.createDemoPrompt();
+            });
+        }
+    }
+
+    /**
+     * Setup unified UI event listeners for new interface
+     */
+    setupUnifiedUIEventListeners() {
+        // Note: The SavedPromptsManager now handles its own unified UI event listeners
+        // This method is kept for any additional unified UI components
+        
+        // Demo prompt creation button
+        const demoBtn = document.getElementById('create-demo-prompt');
+        if (demoBtn) {
+            demoBtn.addEventListener('click', () => {
+                this.createDemoPrompt();
+            });
+        }
+    }
+
+    /**
+     * Create a demo prompt for testing
+     */
+    createDemoPrompt() {
+        // Fill form fields with demo data
+        const basePromptField = document.getElementById('base-prompt');
+        const taskField = document.getElementById('task-description');
+        const outputField = document.getElementById('output-format');
+
+        if (basePromptField) {
+            basePromptField.value = 'Du bist ein erfahrener KI-Experte mit fundiertem Wissen in Prompt Engineering und Machine Learning.';
+        }
+        
+        if (taskField) {
+            taskField.value = 'Analysiere den folgenden Text und erstelle eine strukturierte Zusammenfassung mit den wichtigsten Erkenntnissen.';
+        }
+        
+        if (outputField) {
+            outputField.value = 'Strukturiere deine Antwort in folgenden Abschnitten: 1) Hauptthemen, 2) Wichtige Details, 3) Schlussfolgerungen. Verwende Bullet Points für bessere Lesbarkeit.';
+        }
+
+        // Select some demo techniques
+        if (this.promptBuilder && this.promptBuilder.techniqueManager) {
+            // Clear existing selections
+            this.promptBuilder.selectedTechniques = [];
+            
+            // Add some demo techniques
+            const demoTechniques = ['Chain-of-Thought', 'Structured Thinking'];
+            demoTechniques.forEach(technique => {
+                if (!this.promptBuilder.selectedTechniques.includes(technique)) {
+                    this.promptBuilder.selectedTechniques.push(technique);
+                }
+            });
+            
+            // Update UI
+            this.promptBuilder.techniqueManager.updateTechniqueSelections();
+        }
+
+        // Trigger preview update
+        if (this.promptPreviewManager) {
+            this.promptPreviewManager.updatePromptPreview();
+        }
+
+        this.uiMessageManager.showMessage('Demo-Prompt wurde erstellt! Sie können ihn jetzt testen und speichern.');
     }
 
     /**

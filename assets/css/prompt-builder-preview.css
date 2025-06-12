@@ -29,106 +29,302 @@
 }
 
 /* =====================================
-   PROMPT ACTIONS
+   UNIFIED PROMPT MANAGEMENT INTERFACE
    ===================================== */
 .prompt-actions {
-    display: flex;
-    justify-content: space-between;
     margin-top: 20px;
-    align-items: center;
+    padding: 0;
+}
+
+.prompt-management-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 /* =====================================
-   PROMPT ACTIONS
+   UNIFIED PROMPT INPUT/SELECTOR
    ===================================== */
-.prompt-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    align-items: flex-end;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.prompt-actions-left {
+.prompt-selector-container {
+    position: relative;
     flex: 1;
-    min-width: 300px;
 }
 
-.prompt-actions-right {
+.prompt-input-wrapper {
     display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    flex-wrap: wrap;
-}
-
-/* =====================================
-   SAVED PROMPTS SECTION
-   ===================================== */
-.saved-prompts-section {
-    margin-bottom: 10px;
-}
-
-.saved-prompts-section label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-.saved-prompts-controls {
-    display: flex;
-    gap: 8px;
     align-items: center;
-    flex-wrap: wrap;
-}
-
-.saved-prompts-select {
-    flex: 1;
-    min-width: 200px;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
     background: #fff;
-    font-size: 0.9rem;
-    color: #333;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.saved-prompts-select:focus {
-    outline: none;
+.prompt-input-wrapper:focus-within {
     border-color: #4a6cf7;
-    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
 }
 
-/* =====================================
-   SAVE PROMPT SECTION
-   ===================================== */
-.save-prompt-section {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.prompt-name-input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    min-width: 180px;
-    color: #333;
-}
-
-.prompt-name-input:focus {
+.unified-prompt-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
     outline: none;
-    border-color: #4a6cf7;
-    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+    font-size: 14px;
+    background: transparent;
+    color: #333;
+    font-family: inherit;
 }
 
-.prompt-name-input::placeholder {
+.unified-prompt-input::placeholder {
     color: #999;
 }
+
+.dropdown-toggle-btn {
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border-left: 1px solid #e1e5e9;
+}
+
+.dropdown-toggle-btn:hover {
+    color: #4a6cf7;
+}
+
+.dropdown-toggle-btn i {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-toggle-btn.open i {
+    transform: rotate(180deg);
+}
+
+/* =====================================
+   SAVED PROMPTS DROPDOWN
+   ===================================== */
+.saved-prompts-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 2px solid #e1e5e9;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-header {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e1e5e9;
+    font-weight: 500;
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.saved-prompts-list {
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.saved-prompt-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.saved-prompt-item:hover {
+    background-color: #f8f9fa;
+}
+
+.saved-prompt-item.selected {
+    background-color: #e8f2ff;
+    border-left: 3px solid #4a6cf7;
+}
+
+.saved-prompt-info {
+    flex: 1;
+}
+
+.saved-prompt-name {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.saved-prompt-meta {
+    font-size: 11px;
+    color: #666;
+}
+
+.empty-prompts-message {
+    padding: 20px 16px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* =====================================
+   ACTION BUTTONS
+   ===================================== */
+.prompt-actions-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid #e1e5e9;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.action-btn:hover {
+    border-color: #4a6cf7;
+    color: #4a6cf7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(74, 108, 247, 0.15);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(74, 108, 247, 0.1);
+}
+
+.action-btn.danger:hover {
+    border-color: #e53e3e;
+    color: #e53e3e;
+    box-shadow: 0 4px 8px rgba(229, 62, 62, 0.15);
+}
+
+/* Tooltip styling */
+.action-btn::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1001;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #333;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1001;
+}
+
+.action-btn:hover::after,
+.action-btn:hover::before {
+    opacity: 1;
+}
+
+/* =====================================
+   EXPORT DROPDOWN CONTAINER
+   ===================================== */
+.export-dropdown-container {
+    position: relative;
+}
+
+.export-options-dropdown {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: #fff;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    min-width: 140px;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.export-options-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.export-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    color: #333;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: left;
+}
+
+.export-option:hover {
+    background-color: #f8f9fa;
+}
+
+.export-option i {
+    width: 16px;
+    text-align: center;
+    color: #666;
+}
+
+.export-option span {
+    font-weight: 500;
+}
+
+/* Legacy styles removed - replaced with unified interface */
+
+/* Legacy styles removed - replaced with unified interface */
 
 /* =====================================
    BUTTON STYLING
@@ -288,35 +484,146 @@
    RESPONSIVE DESIGN
    ===================================== */
 @media (max-width: 768px) {
-    .prompt-actions {
-        flex-direction: column;
-        align-items: stretch;
+    .prompt-management-section {
+        gap: 12px;
     }
     
-    .prompt-actions-left {
-        min-width: unset;
+    .prompt-actions-buttons {
+        justify-content: center;
+        gap: 6px;
     }
     
-    .prompt-actions-right {
-        justify-content: flex-start;
+    .action-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
     }
     
-    .saved-prompts-controls {
-        flex-direction: column;
-        align-items: stretch;
+    .unified-prompt-input {
+        font-size: 16px; /* Prevents zoom on iOS */
     }
     
-    .saved-prompts-select {
-        min-width: unset;
+    .saved-prompts-dropdown {
+        max-height: 200px;
     }
     
-    .save-prompt-section {
-        flex-direction: column;
-        align-items: stretch;
+    .export-options-dropdown {
+        right: auto;
+        left: 0;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .prompt-actions-buttons {
+        width: 100%;
+        justify-content: space-around;
     }
     
-    .prompt-name-input {
-        min-width: unset;
+    .action-btn {
+        flex: 1;
+        max-width: 50px;
+    }
+}
+
+/* =====================================
+   ANIMATIONS AND TRANSITIONS
+   ===================================== */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =====================================
+   ACCESSIBILITY IMPROVEMENTS
+   ===================================== */
+.action-btn:focus {
+    outline: 2px solid #4a6cf7;
+    outline-offset: 2px;
+}
+
+/* Focus is handled by parent wrapper */
+
+.export-option:focus {
+    background-color: #e8f2ff;
+    outline: none;
+}
+
+.saved-prompt-item:focus {
+    background-color: #e8f2ff;
+    outline: 2px solid #4a6cf7;
+    outline-offset: -2px;
+}
+
+/* =====================================
+   DARK MODE SUPPORT (Future Enhancement)
+   ===================================== */
+@media (prefers-color-scheme: dark) {
+    .prompt-input-wrapper {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .unified-prompt-input {
+        color: #e2e8f0;
+    }
+    
+    .unified-prompt-input::placeholder {
+        color: #a0aec0;
+    }
+    
+    .saved-prompts-dropdown {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .dropdown-header {
+        background: #1a202c;
+        color: #a0aec0;
+    }
+    
+    .saved-prompt-item {
+        border-bottom-color: #4a5568;
+    }
+    
+    .saved-prompt-item:hover {
+        background-color: #4a5568;
+    }
+    
+    .action-btn {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #a0aec0;
+    }
+    
+    .export-options-dropdown {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .export-option {
+        color: #e2e8f0;
+    }
+    
+    .export-option:hover {
+        background-color: #4a5568;
     }
 }
 

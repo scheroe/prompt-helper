@@ -86,6 +86,9 @@
                             <div class="form-actions">
                                 <button id="generate-preview-button" class="button primary large">Vorschau anzeigen
                                 </button>
+                                <button id="create-demo-prompt" class="button secondary small" title="Demo-Prompt für Export-Tests erstellen">
+                                    <i class="fas fa-magic"></i> Demo erstellen
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -104,79 +107,81 @@
                             <div id="prompt-preview">Ihr Prompt wird hier angezeigt. Wählen Sie Techniken aus und füllen Sie die Eingabefelder aus, um Ihren Prompt zu erstellen.
                             </div>
                             
-                            <!-- Prompt Actions -->
+                            <!-- Prompt Actions - Unified Interface -->
                             <div class="prompt-actions">
-                                <div class="prompt-actions-left">
-                                    <!-- Saved Prompts Dropdown -->
-                                    <div class="saved-prompts-section">
-                                        <label for="saved-prompts-select">Gespeicherte Prompts:</label>
-                                        <div class="saved-prompts-controls">
-                                            <select id="saved-prompts-select" class="saved-prompts-select">
-                                                <option value="">-- Gespeicherten Prompt wählen --</option>
-                                            </select>
-                                            <button id="load-saved-prompt" class="button secondary small" disabled>
-                                                <i class="fas fa-upload"></i> Laden
+                                <div class="prompt-management-section">
+                                    <!-- Unified Prompt Input/Selector -->
+                                    <div class="prompt-selector-container">
+                                        <div class="prompt-input-wrapper">
+                                            <input type="text" 
+                                                   id="unified-prompt-input" 
+                                                   placeholder="Prompt-Name eingeben oder wählen..." 
+                                                   class="unified-prompt-input"
+                                                   autocomplete="off">
+                                            <button id="prompt-dropdown-toggle" class="dropdown-toggle-btn" type="button" title="Gespeicherte Prompts anzeigen">
+                                                <i class="fas fa-chevron-down"></i>
                                             </button>
-                                            <button id="edit-saved-prompt" class="button secondary small" disabled>
-                                                <i class="fas fa-edit"></i> Bearbeiten
-                                            </button>
-                                            <button id="delete-saved-prompt" class="button secondary small" disabled>
-                                                <i class="fas fa-trash"></i> Löschen
-                                            </button>
-                                            
-                                            <!-- Export Saved Prompt Dropdown -->
-                                            <div class="export-saved-prompt-section">
-                                                <button id="export-saved-prompt-dropdown-toggle" class="button secondary small" disabled>
-                                                    <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
-                                                </button>
-                                                <div id="export-saved-prompt-dropdown" class="export-dropdown" style="display: none;">
-                                                    <button id="export-saved-prompt-text" class="export-option">
-                                                        <i class="fas fa-file-alt"></i> Als Text (.txt)
-                                                    </button>
-                                                    <button id="export-saved-prompt-markdown" class="export-option">
-                                                        <i class="fab fa-markdown"></i> Als Markdown (.md)
-                                                    </button>
-                                                    <button id="export-saved-prompt-xml" class="export-option">
-                                                        <i class="fas fa-code"></i> Als XML (.xml)
-                                                    </button>
-                                                </div>
+                                        </div>
+                                        
+                                        <!-- Dropdown for saved prompts -->
+                                        <div id="saved-prompts-dropdown" class="saved-prompts-dropdown" style="display: none;">
+                                            <div class="dropdown-header">
+                                                <span>Gespeicherte Prompts</span>
+                                            </div>
+                                            <div id="saved-prompts-list" class="saved-prompts-list">
+                                                <!-- Dynamically populated -->
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="prompt-actions-right">
-                                    <!-- Save Current Prompt -->
-                                    <div class="save-prompt-section">
-                                        <input type="text" id="prompt-name-input" placeholder="Prompt-Name eingeben..." class="prompt-name-input">
-                                        <button id="save-current-prompt" class="button primary small">
-                                            <i class="fas fa-save"></i> Speichern
-                                        </button>
-                                    </div>
                                     
-                                    <!-- Copy Prompt -->
-                                    <button id="copy-prompt-button" class="button secondary small">
-                                        <i class="fas fa-copy"></i> Kopieren
-                                    </button>
-                                    
-                                    <!-- Export Prompt Dropdown -->
-                                    <div class="export-prompt-section">
-                                        <button id="export-prompt-dropdown-toggle" class="button secondary small">
-                                            <i class="fas fa-download"></i> Exportieren <i class="fas fa-chevron-down"></i>
+                                    <!-- Action Buttons -->
+                                    <div class="prompt-actions-buttons">
+                                        <!-- Save/Update Button -->
+                                        <button id="save-prompt-btn" class="action-btn" title="Aktuellen Prompt speichern">
+                                            <i class="fas fa-save"></i>
                                         </button>
-                                        <div id="export-prompt-dropdown" class="export-dropdown" style="display: none;">
-                                            <button id="export-prompt-text" class="export-option">
-                                                <i class="fas fa-file-alt"></i> Als Text (.txt)
+                                        
+                                        <!-- Load Button (only visible when prompt selected) -->
+                                        <button id="load-prompt-btn" class="action-btn" title="Ausgewählten Prompt laden" style="display: none;">
+                                            <i class="fas fa-upload"></i>
+                                        </button>
+                                        
+                                        <!-- Edit Button (only visible when prompt selected) -->
+                                        <button id="edit-prompt-btn" class="action-btn" title="Ausgewählten Prompt bearbeiten" style="display: none;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        
+                                        <!-- Delete Button (only visible when prompt selected) -->
+                                        <button id="delete-prompt-btn" class="action-btn danger" title="Ausgewählten Prompt löschen" style="display: none;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        
+                                        <!-- Copy Button -->
+                                        <button id="copy-prompt-btn" class="action-btn" title="Prompt in Zwischenablage kopieren">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        
+                                        <!-- Export Dropdown -->
+                                        <div class="export-dropdown-container">
+                                            <button id="export-dropdown-btn" class="action-btn" title="Prompt exportieren">
+                                                <i class="fas fa-download"></i>
                                             </button>
-                                            <button id="export-prompt-markdown" class="export-option">
-                                                <i class="fab fa-markdown"></i> Als Markdown (.md)
-                                            </button>
-                                            <button id="export-prompt-xml" class="export-option">
-                                                <i class="fas fa-code"></i> Als XML (.xml)
-                                            </button>
+                                            <div id="export-options-dropdown" class="export-options-dropdown" style="display: none;">
+                                                <button class="export-option" data-format="text" title="Als Text-Datei exportieren">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    <span>.txt</span>
+                                                </button>
+                                                <button class="export-option" data-format="markdown" title="Als Markdown-Datei exportieren">
+                                                    <i class="fab fa-markdown"></i>
+                                                    <span>.md</span>
+                                                </button>
+                                                <button class="export-option" data-format="xml" title="Als XML-Datei exportieren">
+                                                    <i class="fas fa-code"></i>
+                                                    <span>.xml</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -369,5 +374,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Development Test Script (only load on localhost) -->
+    <script>
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const testScript = document.createElement('script');
+            testScript.src = 'assets/js/unified-ui-test.js';
+            document.head.appendChild(testScript);
+        }
+    </script>
 </body>
 </html>
